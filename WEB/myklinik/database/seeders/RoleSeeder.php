@@ -9,19 +9,21 @@ use Illuminate\Support\Carbon;
 class RoleSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     */
+         * Author: AlexistDev
+         * Email: Alexistdev@gmail.com
+         * Phone: 082371408678
+         * Github: https://github.com/alexistdev
+         */
+
     public function run(): void
     {
+        $result = [];
+        $temp1 = ["audit", "admin", "pendaftaran","dokter","apotik","user"];
         $date = Carbon::now()->format('Y-m-d H:i:s');
-        $role = [
-            array('name' => 'audit','created_at' => $date,'updated_at' => $date),
-            array('name' => 'admin','created_at' => $date,'updated_at' => $date),
-            array('name' => 'pendaftaran','created_at' => $date,'updated_at' => $date),
-            array('name' => 'dokter','created_at' => $date,'updated_at' => $date),
-            array('name' => 'apotik','created_at' => $date,'updated_at' => $date),
-            array('name' => 'user','created_at' => $date,'updated_at' => $date),
-        ];
-        Role::insert($role);
+        for ($i = 0; $i < count($temp1); $i++) {
+            $temp2 = ['name' => $temp1[$i],'created_at' => $date,'updated_at' => $date];
+            array_push($result, $temp2);
+        }
+        Role::insert($result);
     }
 }
