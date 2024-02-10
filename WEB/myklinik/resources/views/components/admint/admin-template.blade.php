@@ -9,6 +9,7 @@
     <meta content="Aplikasi My Klinik" name="description" />
     <meta content="MyKlinik" name="alexistdev" />
     <x-admint.header-layout-admin />
+    @stack('customCss')
 </head>
 
 <body>
@@ -77,6 +78,7 @@
 <!-- Start: Javascript -->
 <x-admint.js-layout-admin />
 <!-- End: Javascript -->
+@stack('customJs')
 </body>
 
 </html>

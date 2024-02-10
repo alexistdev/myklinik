@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\{DashboardController as AdminDashboard};
+use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
+    KategoriController as AdminKategori};
 
 
 
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'admin'], function () {
         Route::get('/staff/dashboard', [AdminDashboard::class, 'index'])->name('adm.dashboard');
+        Route::get('/staff/kategori', [AdminKategori::class, 'index'])->name('adm.kategori');
     });
 });
 
