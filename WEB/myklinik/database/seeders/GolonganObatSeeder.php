@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Golongan_obat;
 use App\Models\Kategori_obat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
-class KategoriObatSeeder extends Seeder
+class GolonganObatSeeder extends Seeder
 {
     /**
          * Author: AlexistDev
@@ -18,17 +19,13 @@ class KategoriObatSeeder extends Seeder
 
     public function run(): void
     {
-        $kategori = [];
+        $result = [];
+        $temp1 = ["obat bebas", "obat bebas terbatas", "obat keras"];
         $date = Carbon::now()->format('Y-m-d H:i:s');
-        $kategori_obat = ["antibiotik", "vitamin"];
-        for ($i = 0; $i < count($kategori_obat); $i++) {
-            $temp = [
-                'name' => $kategori_obat[$i],
-                'created_at' => $date,
-                'updated_at' => $date
-            ];
-            array_push($kategori, $temp);
+        for ($i = 0; $i < count($temp1); $i++) {
+            $temp2 = ['name' => $temp1[$i],'created_at' => $date,'updated_at' => $date];
+            array_push($result, $temp2);
         }
-        Kategori_obat::insert($kategori);
+        Golongan_obat::insert($result);
     }
 }
