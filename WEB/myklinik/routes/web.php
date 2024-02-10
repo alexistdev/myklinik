@@ -3,7 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
-    KategoriController as AdminKategori};
+    KategoriController as AdminKategori,
+    GolonganController as AdminGolongan};
 
 
 
@@ -24,10 +25,16 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'admin'], function () {
         Route::get('/staff/dashboard', [AdminDashboard::class, 'index'])->name('adm.dashboard');
+
         Route::get('/staff/kategori', [AdminKategori::class, 'index'])->name('adm.kategori');
         Route::post('/staff/kategori', [AdminKategori::class, 'store'])->name('adm.kategori.save');
         Route::patch('/staff/kategori', [AdminKategori::class, 'update'])->name('adm.kategori.update');
         Route::delete('/staff/kategori', [AdminKategori::class, 'destroy'])->name('adm.kategori.delete');
+
+        Route::get('/staff/golongan', [AdminGolongan::class, 'index'])->name('adm.golongan');
+        Route::post('/staff/golongan', [AdminGolongan::class, 'store'])->name('adm.golongan.save');
+        Route::patch('/staff/golongan', [AdminGolongan::class, 'update'])->name('adm.golongan.update');
+        Route::delete('/staff/golongan', [AdminGolongan::class, 'destroy'])->name('adm.golongan.delete');
     });
 });
 

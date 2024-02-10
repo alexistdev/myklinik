@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Admin\GolonganService;
+use App\Services\Admin\GolonganServiceImpl;
 use App\Services\Admin\KategoriService;
 use App\Services\Admin\KategoriServiceImpl;
 use Illuminate\Pagination\Paginator;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
 
     public $bindings = [
             KategoriService::class => KategoriServiceImpl::class,
+            GolonganService::class => GolonganServiceImpl::class,
     ];
 
     public function register(): void

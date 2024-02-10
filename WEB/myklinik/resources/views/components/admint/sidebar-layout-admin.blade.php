@@ -44,14 +44,14 @@
                         <a class="nav-link menu-link @if($firstMenu == "myData") active @endif" href="#sidebarForms" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
                             <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Data Obat</span>
                         </a>
-                        <div class="menu-dropdown navbar-expand @if($secondMenu != "kategori") collapse @endif" id="sidebarForms">
+                        <div class="menu-dropdown navbar-expand @if($firstMenu != "myData") collapse @endif" id="sidebarForms">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a href="{{route('adm.kategori')}}" class="nav-link @if($secondMenu == "kategori") active @endif" data-key="t-basic-elements">Kategori
                                         Obat</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link" data-key="t-form-select"> Golongan Obat </a>
+                                    <a href="{{route('adm.golongan')}}" class="nav-link @if($secondMenu == "golongan") active @endif" data-key="t-form-select"> Golongan Obat </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link" data-key="t-checkboxs-radios">Data Obat</a>
