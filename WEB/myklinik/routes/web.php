@@ -2,17 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\{DashboardController as AdminDashboard};
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,7 +21,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
-
+    Route::group(['roles' => 'admin'], function () {
+        Route::get('/staff/dashboard', [AdminDashboard::class, 'index'])->name('adm.dashboard');
+    });
 });
 
 require __DIR__.'/auth.php';
