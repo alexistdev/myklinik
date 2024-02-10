@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Golongan_obat extends Model
 {
@@ -13,6 +14,7 @@ class Golongan_obat extends Model
      * Github: https://github.com/alexistdev
      */
 
+    use SoftDeletes;
 
     protected $fillable =['name'];
 }
