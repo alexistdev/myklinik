@@ -14,10 +14,13 @@ class SidebarLayoutAdmin extends Component
          * Phone: 082371408678
          * Github: https://github.com/alexistdev
          */
+    public $firstMenu;
+    public $secondMenu;
 
-    public function __construct()
+    public function __construct($firstMenu,$secondMenu)
     {
-        //
+        $this->firstMenu = $firstMenu;
+        $this->secondMenu = $secondMenu;
     }
 
     public function render(): View|Closure|string

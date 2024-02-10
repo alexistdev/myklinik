@@ -15,9 +15,15 @@ class AdminTemplate extends Component
          * Github: https://github.com/alexistdev
          */
 
-    public function __construct()
+    public $title;
+    public $firstMenu;
+    public $secondMenu;
+
+    public function __construct($title,$firstMenu,$secondMenu)
     {
-        //
+        $this->title = $title;
+        $this->firstMenu = $firstMenu;
+        $this->secondMenu = $secondMenu;
     }
 
     public function render(): View|Closure|string

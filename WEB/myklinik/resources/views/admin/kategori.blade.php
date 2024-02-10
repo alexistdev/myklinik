@@ -1,4 +1,4 @@
-<x-admint.admin-template>
+<x-admint.admin-template :title="$title" :first-menu="$firstMenu" :second-menu="$secondMenu">
     @push('customCss')
         <!--datatable css-->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>

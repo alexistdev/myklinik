@@ -46,7 +46,7 @@
     </div><!-- /.modal -->
 
     <!-- Start: Sidebar -->
-    <x-admint.sidebar-layout-admin />
+    <x-admint.sidebar-layout-admin :first-menu="$firstMenu" :second-menu="$secondMenu"/>
     <!-- End: Sidebar -->
 
     <!-- Vertical Overlay-->

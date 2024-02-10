@@ -39,8 +39,8 @@ class KategoriController extends Controller
 
         return view('admin.kategori', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
-            'firstMenu' => 'dashboard',
-            'secondMenu' => 'dashboard',
+            'firstMenu' => 'myData',
+            'secondMenu' => 'kategori',
         ));
     }
 

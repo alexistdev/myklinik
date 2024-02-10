@@ -1,4 +1,4 @@
-<x-admint.admin-template>
+<x-admint.admin-template :title="$title" :first-menu="$firstMenu" :second-menu="$secondMenu">
     <div class="page-content">
         <div class="container-fluid">
 
