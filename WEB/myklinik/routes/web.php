@@ -25,6 +25,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'admin'], function () {
         Route::get('/staff/dashboard', [AdminDashboard::class, 'index'])->name('adm.dashboard');
         Route::get('/staff/kategori', [AdminKategori::class, 'index'])->name('adm.kategori');
+        Route::post('/staff/kategori', [AdminKategori::class, 'store'])->name('adm.kategori.save');
+        Route::patch('/staff/kategori', [AdminKategori::class, 'update'])->name('adm.kategori.update');
+        Route::delete('/staff/kategori', [AdminKategori::class, 'destroy'])->name('adm.kategori.delete');
     });
 });
 
