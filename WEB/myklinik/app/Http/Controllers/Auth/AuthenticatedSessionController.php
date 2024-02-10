@@ -12,29 +12,48 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
+   /**
+        * Author: AlexistDev
+        * Email: Alexistdev@gmail.com
+        * Phone: 082371408678
+        * Github: https://github.com/alexistdev
+        */
+
     public function create(): View
     {
-        return view('auth.login');
+        return view('auth.login',[
+            'title' => "Login | Aplikasi My Klinik ",
+        ]);
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $roleId = (Int) $user->role_id;
+
+        switch ($roleId){
+            case 1:
+                return redirect()->intended(RouteServiceProvider::AUDIT);
+            case 2:
+                return redirect()->intended(RouteServiceProvider::ADMIN);
+            case 3:
+                return redirect()->intended(RouteServiceProvider::PENDAFTARAN);
+            case 4:
+                return redirect()->intended(RouteServiceProvider::DOKTER);
+            case 5:
+                return redirect()->intended(RouteServiceProvider::APOTIK);
+            case 6:
+                return redirect()->intended(RouteServiceProvider::USER);
+            default:
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                abort('404','NOT FOUND');
+        }
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

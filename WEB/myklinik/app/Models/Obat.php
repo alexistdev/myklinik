@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Obat extends Model
 {
+    /**
+         * Author: AlexistDev
+         * Email: Alexistdev@gmail.com
+         * Phone: 082371408678
+         * Github: https://github.com/alexistdev
+         */
+
     use SoftDeletes;
 }
