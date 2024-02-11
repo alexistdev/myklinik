@@ -20,7 +20,7 @@ class ObatServiceImpl implements ObatService
 
     public function index(Request $request)
     {
-        $obat = Obat::orderBy('id', 'DESC')->get();
+        $obat = Obat::with('golongan')->orderBy('id', 'DESC')->get();
         return DataTables::of($obat)
             ->addIndexColumn()
             ->editColumn('name', function ($request) {
@@ -28,6 +28,15 @@ class ObatServiceImpl implements ObatService
             })
             ->editColumn('created_at', function ($request) {
                 return $request->created_at->format('d-m-Y H:i:s');
+            })
+            ->editColumn('golongan', function ($request) {
+                return strtoupper($request->golongan->name);
+            })
+            ->editColumn('kategori', function ($request) {
+                return strtoupper($request->kategori->name);
+            })
+            ->editColumn('code', function ($request) {
+                return strtoupper($request->code);
             })
             ->addColumn('action', function ($row) {
                 $id = encrypt($row->id);

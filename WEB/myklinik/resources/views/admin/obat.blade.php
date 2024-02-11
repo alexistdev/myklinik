@@ -46,7 +46,11 @@
                                 <thead>
                                 <tr>
                                     <th data-ordering="false" class="text-center">No.</th>
+                                    <th data-ordering="false" class="text-center">CODE</th>
                                     <th data-ordering="false" class="text-center">NAME</th>
+                                    <th data-ordering="false" class="text-center">KATEGORI</th>
+                                    <th data-ordering="false" class="text-center">GOLONGAN</th>
+                                    <th data-ordering="false" class="text-center">STOCK</th>
                                     <th data-ordering="false" class="text-center">CREATED AT</th>
                                     <th class="text-center">ACTION</th>
                                 </tr>
@@ -159,9 +163,12 @@
                                 return meta.row + meta.settings._iDisplayStart + 1; //auto increment
                             }
                         },
+                        {data: 'code', class: 'text-left',width: '15%'},
                         {data: 'name', class: 'text-left'},
-                        // {data: 'kelas', class: 'text-left',width: '15%'},
-                        {data: 'created_at', class: 'text-center', width: '15%'},
+                        {data: 'kategori', class: 'text-center',width: '15%'},
+                        {data: 'golongan', class: 'text-center',width: '15%'},
+                        {data: 'stock', class: 'text-center',width: '10%'},
+                        {data: 'created_at', class: 'text-center', width: '10%'},
                         {data: 'action', class: 'text-center', width: '15%', orderable: false},
                     ],
                     "bDestroy": true

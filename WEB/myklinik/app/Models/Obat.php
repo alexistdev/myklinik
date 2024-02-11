@@ -33,4 +33,14 @@ class Obat extends Model
 
         return $code;
     }
+
+    public function golongan()
+    {
+        return $this->belongsTo(Golongan_obat::class,'golonganobat_id','id');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori_obat::class,'kategoriobat_id','id');
+    }
 }
