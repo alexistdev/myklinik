@@ -69,7 +69,7 @@
         <div class="modal-dialog modal-dialog-centered">
 
             <div class="modal-content">
-                <form action="{{route('adm.kategori.delete')}}" method="post">
+                <form action="{{route('adm.obat.delete')}}" method="post">
                     @csrf
                     @method('DELETE')
                     <div class="modal-header">
@@ -79,7 +79,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="hidden" name="kategori_id" id="kategori_id_delete">
+                                <input type="hidden" name="obat_id" id="obat_id_delete">
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -124,7 +124,7 @@
             $(document).on("click", ".open-hapus", function (e) {
                 e.preventDefault();
                 let fid = $(this).data('id');
-                $('#kategori_id_delete').val(fid);
+                $('#obat_id_delete').val(fid);
             })
 
             $('.modal').on('hidden.bs.modal', function (e) {

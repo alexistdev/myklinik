@@ -17,4 +17,8 @@ interface ObatService
     public function index(Request $request);
 
     public function save(ObatRequest $request):void;
+
+    public function update(ObatRequest $request):void;
+
+    public function delete(int $id):void;
 }

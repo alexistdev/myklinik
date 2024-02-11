@@ -16,13 +16,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
-                        <h4 class="mb-sm-0">Tambah Data Obat</h4>
+                        <h4 class="mb-sm-0">Edit Data Obat</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('adm.dashboard')}}">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="{{route('adm.obat')}}">Data Obat</a></li>
-                                <li class="breadcrumb-item active">Add</li>
+                                <li class="breadcrumb-item active">Edit</li>
                             </ol>
                         </div>
 
@@ -34,9 +34,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <form action="{{route('adm.obat.save')}}" method="post">
+                        <form action="{{route('adm.obat.update')}}" method="post">
                             @csrf
+                            @method('patch')
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <input type="hidden" name="obat_id" value="{{$idObat}}">
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <div class="row">
@@ -46,7 +52,7 @@
                                                             class="text-danger">*</span></label>
                                                     <input name="name" type="text"
                                                            class="form-control @if($errors->has('name')) is-invalid @endif"
-                                                           id="namaObat" value="{{old('name')}}"
+                                                           id="namaObat" value="{{old('name',$dataObat->name)}}"
                                                            placeholder="Masukkan Nama Obat" required>
                                                 </div>
 
@@ -60,7 +66,7 @@
                                                         <option value="">Pilih Golongan</option>
                                                         @foreach($optionGolongan as $golongan)
                                                             <option value="{{base64_encode($golongan->id)}}"
-                                                                    @if(base64_encode($golongan->id) == old('golongan_id')) selected @endif>{{$golongan->name}}</option>
+                                                                    @if(base64_encode($golongan->id) == old('golongan_id',base64_encode($dataObat->golonganobat_id))) selected @endif>{{$golongan->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -74,7 +80,7 @@
                                                         <option value="">Pilih Kategori</option>
                                                         @foreach($optionKategori as $kategori)
                                                             <option value="{{base64_encode($kategori->id)}}"
-                                                                    @if(base64_encode($kategori->id) == old('kategori_id')) selected @endif>{{$kategori->name}}</option>
+                                                                    @if(base64_encode($kategori->id) == old('kategori_id',base64_encode($dataObat->kategoriobat_id))) selected @endif>{{$kategori->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -87,8 +93,8 @@
                                                             class="text-danger">*</span></label>
                                                     <select name="type" class="form-control select @if($errors->has('type')) is-invalid @endif" id="tipeObat" required>
                                                         <option value="">Pilih Tipe</option>
-                                                        <option value="serbuk" @if(old('type') == "serbuk") selected @endif>Serbuk</option>
-                                                        <option value="kapsul" @if(old('type') == "kapsul") selected @endif>Kapsul</option>
+                                                        <option value="serbuk" @if(old('type',$dataObat->type) == "serbuk") selected @endif>Serbuk</option>
+                                                        <option value="kapsul" @if(old('type',$dataObat->type) == "kapsul") selected @endif>Kapsul</option>
 
                                                     </select>
                                                 </div>
@@ -100,7 +106,7 @@
                                                     <input name="price" type="number"
                                                            class="form-control @if($errors->has('price')) is-invalid @endif"
                                                            id="hargaObat"
-                                                           placeholder="0"  required>
+                                                           placeholder="0"  value="{{old('price',$dataObat->price)}}" required>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -108,7 +114,7 @@
                                                     <label for="stockObat" class="form-label">Stok <span
                                                             class="text-danger">*</span></label>
                                                     <input name="stock" type="number" class="form-control @if($errors->has('stock')) is-invalid @endif"
-                                                           id="stockObat" placeholder="0" required>
+                                                           id="stockObat" placeholder="0" value="{{old('stock',$dataObat->stock)}}" required>
                                                 </div>
                                             </div>
                                         </div>

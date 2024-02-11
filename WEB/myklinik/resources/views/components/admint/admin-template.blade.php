@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Analytics | Velzon - Admin & Dashboard Template</title>
+    <title>{{$title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Aplikasi My Klinik" name="description" />
     <meta content="MyKlinik" name="alexistdev" />

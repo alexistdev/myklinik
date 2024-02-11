@@ -39,6 +39,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         Route::get('/staff/obat', [AdminObat::class, 'index'])->name('adm.obat');
         Route::post('/staff/obat', [AdminObat::class, 'store'])->name('adm.obat.save');
+        Route::patch('/staff/obat', [AdminObat::class, 'update'])->name('adm.obat.update');
+        Route::delete('/staff/obat', [AdminObat::class, 'destroy'])->name('adm.obat.delete');
+        Route::get('/staff/{id}/obat', [AdminObat::class, 'edit'])->name('adm.obat.edit');
         Route::get('/staff/obat/add', [AdminObat::class, 'create'])->name('adm.obat.add');
     });
 });

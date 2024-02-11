@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ObatRequest;
 use App\Models\Golongan_obat;
 use App\Models\Kategori_obat;
+use App\Models\Obat;
 use App\Services\Admin\ObatService;
 use Exception;
 use Illuminate\Http\Request;
@@ -50,12 +51,14 @@ class ObatController extends Controller
     {
         $kategori = Kategori_obat::orderBy('name','ASC')->get();
         $golongan = Golongan_obat::orderBy('name','ASC')->get();
+        $obat = Obat::count();
         return view('admin.addobat', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'myData',
             'secondMenu' => 'obat',
             'optionKategori' => $kategori,
             'optionGolongan' => $golongan,
+            'jumlahObat' => $obat
         ));
     }
 
@@ -67,6 +70,62 @@ class ObatController extends Controller
             $this->obatService->save($request);
             DB::commit();
             return redirect(route('adm.obat'))->with(['success' => "Data Obat berhasil ditambahkan!"]);
+        }catch (Exception $e){
+            DB::rollback();
+            return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function edit(string $id=null){
+        if($id != null){
+            try{
+                $obat = Obat::all();
+                $kategori = Kategori_obat::orderBy('name','ASC')->get();
+                $golongan = Golongan_obat::orderBy('name','ASC')->get();
+                $dataObat = $obat->where('id',decrypt($id))->first();
+                if($dataObat != null || $dataObat = ""){
+                    return view('admin.editobat', array(
+                        'title' => "Dashboard Administrator | MyKlinik v.1.0",
+                        'firstMenu' => 'myData',
+                        'secondMenu' => 'obat',
+                        'optionKategori' => $kategori,
+                        'optionGolongan' => $golongan,
+                        'jumlahObat' => $obat->count(),
+                        'dataObat' => $dataObat,
+                        'idObat' => $id,
+                    ));
+                }
+                abort('404',"NOT FOUND");
+            }catch (Exception $e){
+                abort('404',"NOT FOUND");
+            }
+        }
+        abort('404',"NOT FOUND");
+    }
+
+    public function update(ObatRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try{
+            $this->obatService->update($request);
+            DB::commit();
+            return redirect(route('adm.obat.edit',$request->obat_id))->with(['success' => "Data Obat berhasil diperbaharui!"]);
+        }catch (Exception $e){
+            DB::rollback();
+            return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function destroy(ObatRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try{
+            $id = base64_decode($request->obat_id);
+            $this->obatService->delete($id);
+            DB::commit();
+            return redirect(route('adm.obat'))->with(['delete' => "Data Obat berhasil dihapus!"]);
         }catch (Exception $e){
             DB::rollback();
             return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
