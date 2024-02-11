@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     KategoriController as AdminKategori,
-    GolonganController as AdminGolongan};
+    GolonganController as AdminGolongan,
+    ObatController as AdminObat};
 
 
 
@@ -35,6 +36,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/staff/golongan', [AdminGolongan::class, 'store'])->name('adm.golongan.save');
         Route::patch('/staff/golongan', [AdminGolongan::class, 'update'])->name('adm.golongan.update');
         Route::delete('/staff/golongan', [AdminGolongan::class, 'destroy'])->name('adm.golongan.delete');
+
+        Route::get('/staff/obat', [AdminObat::class, 'index'])->name('adm.obat');
+        Route::get('/staff/obat/add', [AdminObat::class, 'create'])->name('adm.obat.add');
     });
 });
 
