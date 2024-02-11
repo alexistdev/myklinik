@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\ObatRequest;
 use Illuminate\Http\Request;
 
 interface ObatService
@@ -14,4 +15,6 @@ interface ObatService
          */
 
     public function index(Request $request);
+
+    public function save(ObatRequest $request):void;
 }

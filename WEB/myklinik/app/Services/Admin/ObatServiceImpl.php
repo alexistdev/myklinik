@@ -2,6 +2,9 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\ObatRequest;
+use App\Models\Golongan_obat;
+use App\Models\Kategori_obat;
 use App\Models\Obat;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -35,4 +38,20 @@ class ObatServiceImpl implements ObatService
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function save(ObatRequest $request): void
+    {
+        $obat = new Obat();
+        $kategori = Kategori_obat::findOrFail(base64_decode($request->kategori_id));
+        $golongan = Golongan_obat::findOrFail(base64_decode($request->golongan_id));
+        $obat->kategoriobat_id = $kategori->id;
+        $obat->golonganobat_id = $golongan->id;
+        $obat->name = $request->name;
+        $obat->type = $request->type;
+        $obat->price = $request->price;
+        $obat->stock = $request->stock;
+        $obat->save();
+    }
+
+
 }

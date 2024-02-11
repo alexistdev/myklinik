@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ObatRequest;
 use App\Models\Golongan_obat;
 use App\Models\Kategori_obat;
 use App\Services\Admin\ObatService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ObatController extends Controller
 {
@@ -54,5 +57,19 @@ class ObatController extends Controller
             'optionKategori' => $kategori,
             'optionGolongan' => $golongan,
         ));
+    }
+
+    public function store(ObatRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try{
+            $this->obatService->save($request);
+            DB::commit();
+            return redirect(route('adm.obat'))->with(['success' => "Data Obat berhasil ditambahkan!"]);
+        }catch (Exception $e){
+            DB::rollback();
+            return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

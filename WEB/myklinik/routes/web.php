@@ -38,6 +38,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::delete('/staff/golongan', [AdminGolongan::class, 'destroy'])->name('adm.golongan.delete');
 
         Route::get('/staff/obat', [AdminObat::class, 'index'])->name('adm.obat');
+        Route::post('/staff/obat', [AdminObat::class, 'store'])->name('adm.obat.save');
         Route::get('/staff/obat/add', [AdminObat::class, 'create'])->name('adm.obat.add');
     });
 });
