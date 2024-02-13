@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Enum;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Role extends Model
+enum GenderEnum: string
 {
     /**
          * Author: AlexistDev
@@ -13,6 +11,6 @@ class Role extends Model
          * Github: https://github.com/alexistdev
          */
 
-    protected $table = "roles";
-    protected $guarded = ['name'];
+    case PRIA = 'L';
+    case WANITA = 'P';
 }

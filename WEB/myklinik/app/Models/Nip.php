@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role extends Model
+class Nip extends Model
 {
     /**
          * Author: AlexistDev
@@ -12,7 +13,12 @@ class Role extends Model
          * Phone: 082371408678
          * Github: https://github.com/alexistdev
          */
+    use SoftDeletes;
 
-    protected $table = "roles";
-    protected $guarded = ['name'];
+    protected $table = "nips";
+
+    protected $fillable = [
+      "name","alamat","phone","sex","tanggal_bergabung"
+    ];
+
 }

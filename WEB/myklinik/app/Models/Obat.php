@@ -16,6 +16,8 @@ class Obat extends Model
          */
 
     use SoftDeletes;
+
+    protected $table = "obats";
     protected $fillable = ["kategoriobat_id", "golonganobat_id","code","name","type","price","stock"];
 
     protected static function booted()
