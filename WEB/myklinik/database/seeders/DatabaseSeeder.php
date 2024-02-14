@@ -20,7 +20,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             KategoriObatSeeder::class,
             GolonganObatSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            KaryawansSeeder::class,
+            PoliklinikSeeder::class,
+            DokterSeeder::class,
         ]);
     }
 }

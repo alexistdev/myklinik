@@ -22,11 +22,11 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('nip');
-            $table->string('alamat');
-            $table->string('phone');
+            $table->string('alamat')->nullable();
+            $table->string('phone')->nullable();
             $table->string('sex');
             $table->date('tanggal_bergabung');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
