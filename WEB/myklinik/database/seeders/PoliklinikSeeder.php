@@ -19,7 +19,7 @@ class PoliklinikSeeder extends Seeder
     public function run(): void
     {
         $result = [];
-        $temp1 = ["dokter umum", "spesialis tht", "dokter anak"];
+        $temp1 = ["Dokter UMUM", "Spesialist THT", "Dokter ANAK"];
         $date = Carbon::now()->format('Y-m-d H:i:s');
         for ($i = 0; $i < count($temp1); $i++) {
             $temp2 = ['name' => $temp1[$i],'created_at' => $date,'updated_at' => $date];

@@ -8,6 +8,8 @@ use App\Services\Admin\KategoriService;
 use App\Services\Admin\KategoriServiceImpl;
 use App\Services\Admin\ObatService;
 use App\Services\Admin\ObatServiceImpl;
+use App\Services\Admin\PoliklinikService;
+use App\Services\Admin\PoliklinikServiceImpl;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
             KategoriService::class => KategoriServiceImpl::class,
             GolonganService::class => GolonganServiceImpl::class,
             ObatService::class => ObatServiceImpl::class,
+            PoliklinikService::class => PoliklinikServiceImpl::class,
     ];
 
     public function register(): void

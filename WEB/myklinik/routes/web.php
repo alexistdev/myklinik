@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     KategoriController as AdminKategori,
     GolonganController as AdminGolongan,
-    ObatController as AdminObat};
+    ObatController as AdminObat,
+    PoliklinikController as AdminPoli};
 
 
 
@@ -43,6 +44,11 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::delete('/staff/obat', [AdminObat::class, 'destroy'])->name('adm.obat.delete');
         Route::get('/staff/{id}/obat', [AdminObat::class, 'edit'])->name('adm.obat.edit');
         Route::get('/staff/obat/add', [AdminObat::class, 'create'])->name('adm.obat.add');
+
+        Route::get('/staff/poliklinik', [AdminPoli::class, 'index'])->name('adm.poli');
+        Route::post('/staff/poliklinik', [AdminPoli::class, 'store'])->name('adm.poli.save');
+        Route::patch('/staff/poliklinik', [AdminPoli::class, 'update'])->name('adm.poli.update');
+        Route::delete('/staff/poliklinik', [AdminPoli::class, 'destroy'])->name('adm.poli.delete');
     });
 });
 
