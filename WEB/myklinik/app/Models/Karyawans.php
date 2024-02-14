@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Nip extends Model
+class Karyawans extends Model
 {
     /**
          * Author: AlexistDev
@@ -13,12 +13,10 @@ class Nip extends Model
          * Phone: 082371408678
          * Github: https://github.com/alexistdev
          */
+
     use SoftDeletes;
 
-    protected $table = "nips";
+    protected $table = "karyawans";
 
-    protected $fillable = [
-      "name","alamat","phone","sex","tanggal_bergabung"
-    ];
-
+    protected $fillable = ["user_id","nip","alamat","phone","sex","tanggal_bergabung","status"];
 }

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class KaryawansSeeder extends Seeder
 {
     /**
          * Author: AlexistDev
@@ -16,11 +16,6 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $this->call([
-            RoleSeeder::class,
-            KategoriObatSeeder::class,
-            GolonganObatSeeder::class,
-            UserSeeder::class
-        ]);
+        //
     }
 }

@@ -15,13 +15,18 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('nips', function (Blueprint $table) {
+        Schema::create('karyawans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('nip');
             $table->string('alamat');
             $table->string('phone');
-            $table->string('sex','1');
+            $table->string('sex');
             $table->date('tanggal_bergabung');
+            $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +34,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('nips');
+        Schema::dropIfExists('karyawans');
     }
 };

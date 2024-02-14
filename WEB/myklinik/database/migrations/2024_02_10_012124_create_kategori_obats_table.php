@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
-     */
+         * Author: AlexistDev
+         * Email: Alexistdev@gmail.com
+         * Phone: 082371408678
+         * Github: https://github.com/alexistdev
+         */
+
     public function up(): void
     {
         Schema::create('kategori_obats', function (Blueprint $table) {
@@ -19,9 +23,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('kategori_obats');
