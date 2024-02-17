@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     KategoriController as AdminKategori,
     GolonganController as AdminGolongan,
     ObatController as AdminObat,
-    PoliklinikController as AdminPoli};
+    PoliklinikController as AdminPoli,
+    KaryawanController as AdminKaryawan};
 
 
 
@@ -49,6 +50,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/staff/poliklinik', [AdminPoli::class, 'store'])->name('adm.poli.save');
         Route::patch('/staff/poliklinik', [AdminPoli::class, 'update'])->name('adm.poli.update');
         Route::delete('/staff/poliklinik', [AdminPoli::class, 'destroy'])->name('adm.poli.delete');
+
+        Route::get('/staff/karyawan', [AdminKaryawan::class, 'index'])->name('adm.karyawan');
+        Route::post('/staff/karyawan', [AdminKaryawan::class, 'store'])->name('adm.karyawan.save');
     });
 });
 

@@ -54,7 +54,7 @@
                         <div class="menu-dropdown navbar-expand @if($firstMenu != "karyawan") collapse @endif" id="sidebarForms">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{route('adm.kategori')}}" class="nav-link @if($secondMenu == "karyawan") active @endif" data-key="t-basic-elements">Karyawan</a>
+                                    <a href="{{route('adm.karyawan')}}" class="nav-link @if($secondMenu == "karyawan") active @endif" data-key="t-basic-elements">Karyawan</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('adm.golongan')}}" class="nav-link @if($secondMenu == "dokter") active @endif" data-key="t-form-select"> Dokter </a>

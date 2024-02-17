@@ -36,6 +36,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function scopeKaryawan($query)
+    {
+        return $query->where('role_id', '!=', 1)->where('role_id', '!=', 2)->where('role_id', '!=', 6);
+    }
+
+    public function karyawan()
+    {
+        return $this->hasOne(Karyawans::class,'user_id','id');
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
