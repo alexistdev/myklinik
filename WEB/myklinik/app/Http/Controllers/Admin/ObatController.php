@@ -72,7 +72,7 @@ class ObatController extends Controller
             return redirect(route('adm.obat'))->with(['success' => "Data Obat berhasil ditambahkan!"]);
         }catch (Exception $e){
             DB::rollback();
-            return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
+            abort('404', 'NOT FOUND');
         }
     }
 
@@ -113,7 +113,7 @@ class ObatController extends Controller
             return redirect(route('adm.obat.edit',$request->obat_id))->with(['success' => "Data Obat berhasil diperbaharui!"]);
         }catch (Exception $e){
             DB::rollback();
-            return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
+            abort('404', 'NOT FOUND');
         }
     }
 
@@ -128,7 +128,7 @@ class ObatController extends Controller
             return redirect(route('adm.obat'))->with(['delete' => "Data Obat berhasil dihapus!"]);
         }catch (Exception $e){
             DB::rollback();
-            return redirect(route('adm.obat'))->withErrors(['error' => $e->getMessage()]);
+            abort('404', 'NOT FOUND');
         }
     }
 }

@@ -20,5 +20,5 @@ interface ObatService
 
     public function update(ObatRequest $request):void;
 
-    public function delete(int $id):void;
+    public function delete(string $id):void;
 }

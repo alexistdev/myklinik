@@ -79,7 +79,7 @@ class ObatServiceImpl implements ObatService
         ]);
     }
 
-    public function delete(int $id): void
+    public function delete(string $id): void
     {
         $obat = Obat::findOrFail($id);
         Obat::where('id',$obat->id)->delete();
