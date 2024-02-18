@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,7 +31,11 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-
+        /** Setup cookies */
+        if($request->has('remember')){
+            Cookie::queue('loginUser',$request->email,1440);
+            Cookie::queue('loginPassword',$request->password,1440);
+        }
         $user = Auth::user();
         $roleId = (Int) $user->role_id;
 

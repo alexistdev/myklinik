@@ -103,7 +103,7 @@
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="text" name="email" class="form-control" id="email"
-                                                       placeholder="Masukkan Email" value="{{old('email')}}" required>
+                                                        value="@if(Cookie::has('loginUser')) {{Cookie::get('loginUser')}} @else {{old('email')}} @endif" required>
                                             </div>
 
                                             <div class="mb-3">
@@ -113,8 +113,8 @@
                                                 <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
                                                     <input type="password" name="password"
-                                                           class="form-control pe-5 password-input"
-                                                           placeholder="Enter password" id="password-input" required>
+                                                           class="form-control pe-5 password-input" value="@if(Cookie::has('loginPassword')){{Cookie::get('loginPassword')}}@endif"
+                                                           id="password-input" required>
                                                     <button
                                                         class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
                                                         type="button" id="password-addon"><i
@@ -123,8 +123,8 @@
                                             </div>
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="auth-remember-check">
+                                                <input class="form-check-input" type="checkbox" name="remember" value=""
+                                                       id="auth-remember-check" @if(Cookie::has('loginUser')) checked  @endif>
                                                 <label class="form-check-label" for="auth-remember-check">Remember
                                                     me</label>
                                             </div>
