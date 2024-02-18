@@ -10,10 +10,10 @@ use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     KaryawanController as AdminKaryawan};
 
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/login');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -21,8 +21,8 @@ class AuthenticatedSessionController extends Controller
 
     public function create(): View
     {
-        return view('auth.login',[
-            'title' => "Login | Aplikasi My Klinik ",
+        return view('auth.login2',[
+            'title' => "Aplikasi ".config('app.name'),
         ]);
     }
 
