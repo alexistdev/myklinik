@@ -34,9 +34,9 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                            <a href="{{route('adm.karyawan.add')}}"><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
                                 ADD
-                            </button>
+                            </button></a>
                         </div>
                         <div class="card-body">
                             <table id="tableKaryawan"

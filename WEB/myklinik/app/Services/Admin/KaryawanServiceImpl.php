@@ -2,8 +2,11 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\KaryawanRequest;
+use App\Models\Karyawans;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 
 class KaryawanServiceImpl implements KaryawanService
@@ -57,5 +60,33 @@ class KaryawanServiceImpl implements KaryawanService
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function save(KaryawanRequest $request)
+    {
+        $user = new User();
+        $user->role_id = base64_decode($request->role_id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->nip);
+        $user->save();
+        $idUser = $user->id;
+        $this->save_karyawan($request,$idUser);
+    }
+
+    private function save_karyawan($karyawans, int $userId):int
+    {
+        $insert = new Karyawans();
+        $insert->user_id = $userId;
+        $insert->nip = $karyawans->nip;
+        $insert->alamat = $karyawans->alamat;
+        $insert->phone = $karyawans->phone;
+        $insert->sex = $karyawans->sex;
+        $insert->tanggal_bergabung = date("Y-m-d");
+        $insert->status = 1;
+        $insert->save();
+        return $insert->id;
+     }
+
+
 
 }

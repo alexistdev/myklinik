@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\KaryawanRequest;
+use App\Models\Role;
 use App\Services\Admin\KaryawanService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class KaryawanController extends Controller
 {
     /**
-         * Author: AlexistDev
-         * Email: Alexistdev@gmail.com
-         * Phone: 082371408678
-         * Github: https://github.com/alexistdev
-         */
+     * Author: AlexistDev
+     * Email: Alexistdev@gmail.com
+     * Phone: 082371408678
+     * Github: https://github.com/alexistdev
+     */
     protected $users;
     protected KaryawanService $karyawanService;
 
@@ -33,15 +37,36 @@ class KaryawanController extends Controller
             return $this->karyawanService->index($request);
         }
 
-        return view('admin.karyawan', array(
+        return view('admin.karyawan.index', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'karyawan',
             'secondMenu' => 'karyawan',
         ));
     }
 
-    public function store()
+    public function store(KaryawanRequest $request)
     {
-
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->karyawanService->save($request);
+            DB::commit();
+            return redirect(route('adm.karyawan'))->with(['success' => "Data Karyawan berhasil ditambahkan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.karyawan'))->withErrors(['error' => $e->getMessage()]);
+        }
     }
+
+    public function create()
+    {
+        $role = Role::karyawan()->get();
+        return view('admin.karyawan.add', array(
+            'title' => "Dashboard Administrator | MyKlinik v.1.0",
+            'firstMenu' => 'karyawan',
+            'secondMenu' => 'karyawan',
+            'dataRole' => $role
+        ));
+    }
+
 }

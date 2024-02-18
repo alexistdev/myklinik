@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::delete('/staff/poliklinik', [AdminPoli::class, 'destroy'])->name('adm.poli.delete');
 
         Route::get('/staff/karyawan', [AdminKaryawan::class, 'index'])->name('adm.karyawan');
+        Route::get('/staff/karyawan/add', [AdminKaryawan::class, 'create'])->name('adm.karyawan.add');
         Route::post('/staff/karyawan', [AdminKaryawan::class, 'store'])->name('adm.karyawan.save');
     });
 });
