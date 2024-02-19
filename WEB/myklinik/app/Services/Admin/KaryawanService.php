@@ -16,4 +16,6 @@ interface KaryawanService
     public function index(Request $request);
 
     public function save(KaryawanRequest $request);
+
+    public function update(KaryawanRequest $request);
 }

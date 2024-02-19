@@ -52,8 +52,9 @@ class KaryawanServiceImpl implements KaryawanService
                 return $str;
             })
             ->addColumn('action', function ($row) {
-                $id = base64_encode($row->id);
-                $btn = "<button class=\"btn btn-sm btn-primary open-edit\" data-name =\" $row->name \" data-id=\"$id\"data-bs-toggle=\"modal\" data-bs-target=\"#modalEdit\"><i class=\"fas fa-edit\"></i> Edit</button>";
+                $id = encrypt($row->id);
+                $url = route('adm.karyawan.edit',$id);
+                $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary open-edit\"><i class=\"fas fa-edit\"></i> Edit</button></a>";
                 $btn = $btn . " <a href=\"#\" class=\"btn btn-sm btn-danger ml-auto open-hapus\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"><i class=\"fas fa-trash\"></i> Delete</i></a>";
                 return $btn;
             })
@@ -87,6 +88,22 @@ class KaryawanServiceImpl implements KaryawanService
         return $insert->id;
      }
 
+    public function update(KaryawanRequest $request)
+    {
+        $user = User::findOrFail(decrypt($request->user_id));
+        $user->where('id',$user->id)->update([
+            'email' => $request->email,
+            'name' => $request->name,
+            'role_id' => base64_decode($request->role_id)
+        ]);
+
+        Karyawans::where('user_id',$user->id)->update([
+           'nip' => $request->nip,
+           'alamat' => $request->alamat,
+           'phone' => $request->phone,
+           'sex' => $request->sex
+        ]);
+    }
 
 
 }

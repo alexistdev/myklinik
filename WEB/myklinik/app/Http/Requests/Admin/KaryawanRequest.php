@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class KaryawanRequest extends FormRequest
 {
@@ -25,35 +26,44 @@ class KaryawanRequest extends FormRequest
 
     public function rules(): array
     {
-        if (in_array($this->method(), ['DELETE'])) {
-            $rules['karyawan_id'] =  'required|max:255';
-        } else if(in_array($this->method(),['POST'])){
-            $rules['nip'] =  'required|max:255';
-            $rules['email'] =  'required|email|unique:users,email';
-            $rules['name'] =  'required|max:255';
-            $rules['role_id'] =  'required|max:255';
-            $rules['sex'] =  'required|max:1';
-            $rules['phone'] =  'nullable|max:255';
-            $rules['alamat'] =  'nullable|max:255';
-        } else {
-            $rules['karyawan_id'] =  'required|max:255';
-            $rules['nip'] =  'required|max:255';
-            $rules['email'] =  'required|email|unique:users,email';
-            $rules['name'] =  'required|max:255';
-            $rules['role_id'] =  'required|max:255';
-            $rules['sex'] =  'required|max:1';
-            $rules['phone'] =  'nullable|max:1';
-            $rules['alamat'] =  'nullable|max:255';
+        try{
+            if (in_array($this->method(), ['DELETE'])) {
+                $rules['user_id'] =  'required|max:255';
+            } else if(in_array($this->method(),['POST'])){
+                $rules['nip'] =  'required|max:255';
+                $rules['email'] =  'required|email|unique:users,email';
+                $rules['name'] =  'required|max:255';
+                $rules['role_id'] =  'required|max:255';
+                $rules['sex'] =  'required|max:1';
+                $rules['phone'] =  'nullable|max:255';
+                $rules['alamat'] =  'nullable|max:255';
+            } else {
+                $rules['user_id'] =  'required|max:255';
+                $rules['nip'] =  'required|max:255';
+                $rules['email'] =
+                    [
+                        'required',
+                        'email',
+                        Rule::unique('users','email')->ignore(decrypt($this->user_id)),
+                    ];
+                $rules['name'] =  'required|max:255';
+                $rules['role_id'] =  'required|max:255';
+                $rules['sex'] =  'required|max:1';
+                $rules['phone'] =  'nullable|max:255';
+                $rules['alamat'] =  'nullable|max:255';
+            }
+            return $rules;
+        }catch (\Exception $exception){
+            abort('404','NOT FOUND');
         }
-        return $rules;
     }
 
     public function messages()
     {
         if (in_array($this->method(), ['DELETE'])) {
             $message = [
-                'karyawan_id.required' => "ID tidak ditemukan,silahkan refresh halaman!",
-                'karyawan_id.max' => "ID tidak ditemukan,silahkan refresh halaman!",
+                'user_id.required' => "ID tidak ditemukan,silahkan refresh halaman!",
+                'user_id.max' => "ID tidak ditemukan,silahkan refresh halaman!",
             ];
         } else if(in_array($this->method(),['POST'])){
             $message = [

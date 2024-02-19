@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public function scopeKaryawan($query)
     {
-        return $query->where('role_id', '!=', 1)->where('role_id', '!=', 2)->where('role_id', '!=', 6);
+        return $query->where('role_id', '!=', 1)->where('role_id', '!=', 2)->where('role_id', '!=', 4)->where('role_id', '!=', 6);
     }
 
     public function karyawan()
