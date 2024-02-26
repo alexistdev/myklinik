@@ -67,7 +67,42 @@
         </div>
         <!-- container-fluid -->
     </div>
+        <!-- Start: Modal HAPUS-->
+        <div class="modal fade" id="modalHapus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
 
+                <div class="modal-content">
+                    <form action="{{route('adm.karyawan.delete')}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Hapus Data</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="hidden" name="user_id" id="user_id_delete">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-12 text-center">
+                                    <p>Apakah anda ingin menghapus data ini?</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- End: Modal HAPUS-->
     @push('customJs')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -85,7 +120,7 @@
             $(document).on("click", ".open-hapus", function (e) {
                 e.preventDefault();
                 let fid = $(this).data('id');
-                $('#golongan_id_delete').val(fid);
+                $('#user_id_delete').val(fid);
             })
 
             $('.modal').on('hidden.bs.modal', function (e) {

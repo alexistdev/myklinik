@@ -105,5 +105,15 @@ class KaryawanServiceImpl implements KaryawanService
         ]);
     }
 
+    public function delete(string $id)
+    {
+        $userId = decrypt($id);
+        $user = User::find($userId);
+        if(!$user){
+            abort('404', 'NOT FOUND');
+        }
+        $user->delete();
+    }
+
 
 }

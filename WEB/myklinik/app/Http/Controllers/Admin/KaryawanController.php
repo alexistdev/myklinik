@@ -104,4 +104,18 @@ class KaryawanController extends Controller
             return redirect(route('adm.karyawan'))->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function destroy(KaryawanRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->karyawanService->delete($request->user_id);
+            DB::commit();
+            return redirect(route('adm.karyawan'))->with(['delete' => "Data Karyawan berhasil dihapus!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.karyawan'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

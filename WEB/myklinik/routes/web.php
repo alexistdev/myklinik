@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/staff/{id}/karyawan', [AdminKaryawan::class, 'edit'])->name('adm.karyawan.edit');
         Route::post('/staff/karyawan', [AdminKaryawan::class, 'store'])->name('adm.karyawan.save');
         Route::patch('/staff/karyawan', [AdminKaryawan::class, 'update'])->name('adm.karyawan.update');
+        Route::delete('/staff/karyawan', [AdminKaryawan::class, 'destroy'])->name('adm.karyawan.delete');
     });
 });
 
