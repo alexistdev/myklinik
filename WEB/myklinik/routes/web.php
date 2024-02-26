@@ -7,7 +7,8 @@ use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     GolonganController as AdminGolongan,
     ObatController as AdminObat,
     PoliklinikController as AdminPoli,
-    KaryawanController as AdminKaryawan};
+    KaryawanController as AdminKaryawan,
+    DokterController as AdminDokter};
 
 
 Route::redirect('/', '/login');
@@ -57,6 +58,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/staff/karyawan', [AdminKaryawan::class, 'store'])->name('adm.karyawan.save');
         Route::patch('/staff/karyawan', [AdminKaryawan::class, 'update'])->name('adm.karyawan.update');
         Route::delete('/staff/karyawan', [AdminKaryawan::class, 'destroy'])->name('adm.karyawan.delete');
+
+        Route::get('/staff/dokter', [AdminDokter::class, 'index'])->name('adm.dokter');
+
+
     });
 });
 

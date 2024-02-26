@@ -21,4 +21,8 @@ interface KaryawanService
 
     public function delete(string $request);
 
+    /**
+     *  Dokter
+     */
+    public function index_dokter(Request $request);
 }

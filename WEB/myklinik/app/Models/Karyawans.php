@@ -19,4 +19,9 @@ class Karyawans extends Model
     protected $table = "karyawans";
 
     protected $fillable = ["user_id","nip","alamat","phone","sex","tanggal_bergabung","status"];
+
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class,'karyawan_id','id')->with('poli');
+    }
 }

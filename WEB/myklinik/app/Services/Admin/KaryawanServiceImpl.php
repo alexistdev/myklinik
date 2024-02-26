@@ -115,5 +115,66 @@ class KaryawanServiceImpl implements KaryawanService
         $user->delete();
     }
 
+    /*
+     * Dokter
+     */
+    public function index_dokter(Request $request)
+    {
+        $karyawan = User::with('karyawandokter','role')
+            ->where('role_id','4')
+            ->orderBy('id', 'DESC')->get();
+        return DataTables::of($karyawan)
+            ->addIndexColumn()
+            ->editColumn('izin', function ($request) {
+                return strtoupper($request->karyawandokter->dokter->no_izin ?? "-");
+            })
+            ->editColumn('poliklinik', function ($request) {
+                return strtoupper($request->karyawandokter->dokter->poli->name ?? "-");
+            })
+            ->editColumn('name', function ($request) {
+                return ucfirst($request->name);
+            })
+            ->editColumn('created_at', function ($request) {
+                return $request->created_at->format('d-m-Y H:i:s');
+            })
+            ->editColumn('nip', function ($request) {
+                return $request->karyawan->nip ?? "-";
+            })
+            ->editColumn('alamat', function ($request) {
+                return $request->karyawan->alamat ?? "-";
+            })
+            ->editColumn('phone', function ($request) {
+                return $request->karyawan->phone ?? "-";
+            })
+
+            ->editColumn('sex', function ($request) {
+                return $request->karyawan->sex ?? "-";
+            })
+            ->editColumn('role', function ($request) {
+                $str = "";
+                if($request->role_id != null){
+                    if($request->role_id == "3"){
+                        $str = "BAG.PENDAFTARAN";
+                    }else if($request->role_id == "4"){
+                        $str = "DOKTER";
+                    }else if($request->role_id == "5"){
+                        $str = "STAFF APOTIK";
+                    } else {
+                        $str = "NA";
+                    }
+                }
+                return $str;
+            })
+            ->addColumn('action', function ($row) {
+                $id = encrypt($row->id);
+                $url = route('adm.karyawan.edit',$id);
+                $btn = "<a href=\"$url\"><button class=\"btn btn-sm btn-primary open-edit\"><i class=\"fas fa-edit\"></i> Edit</button></a>";
+                $btn = $btn . " <a href=\"#\" class=\"btn btn-sm btn-danger ml-auto open-hapus\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"><i class=\"fas fa-trash\"></i> Delete</i></a>";
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 
 }

@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $query->where('role_id', '!=', 1)->where('role_id', '!=', 2)->where('role_id', '!=', 4)->where('role_id', '!=', 6);
     }
 
+    public function karyawandokter()
+    {
+        return $this->hasOne(Karyawans::class,'user_id','id')->with('dokter');
+    }
+
     public function karyawan()
     {
         return $this->hasOne(Karyawans::class,'user_id','id');

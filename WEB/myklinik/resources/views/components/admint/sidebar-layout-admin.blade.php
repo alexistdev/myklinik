@@ -57,7 +57,7 @@
                                     <a href="{{route('adm.karyawan')}}" class="nav-link @if($secondMenu == "karyawan") active @endif" data-key="t-basic-elements">Karyawan</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('adm.golongan')}}" class="nav-link @if($secondMenu == "dokter") active @endif" data-key="t-form-select"> Dokter </a>
+                                    <a href="{{route('adm.dokter')}}" class="nav-link @if($secondMenu == "dokter") active @endif" data-key="t-form-select"> Dokter </a>
                                 </li>
                             </ul>
                         </div>
