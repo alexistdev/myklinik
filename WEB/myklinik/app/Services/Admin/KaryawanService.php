@@ -28,4 +28,8 @@ interface KaryawanService
     public function index_dokter(Request $request);
 
     public function save_dokter(DokterRequest $request);
+
+    public function update_dokter(DokterRequest $request);
+
+
 }

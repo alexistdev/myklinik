@@ -74,7 +74,7 @@
             <div class="modal-dialog modal-dialog-centered">
 
                 <div class="modal-content">
-                    <form action="{{route('adm.karyawan.delete')}}" method="post">
+                    <form action="{{route('adm.dokter.delete')}}" method="post">
                         @csrf
                         @method('DELETE')
                         <div class="modal-header">

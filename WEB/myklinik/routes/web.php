@@ -61,6 +61,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         Route::get('/staff/dokter', [AdminDokter::class, 'index'])->name('adm.dokter');
         Route::post('/staff/dokter', [AdminDokter::class, 'store'])->name('adm.dokter.save');
+        Route::patch('/staff/dokter', [AdminDokter::class, 'update'])->name('adm.dokter.update');
+        Route::delete('/staff/dokter', [AdminDokter::class, 'destroy'])->name('adm.dokter.delete');
+        Route::get('/staff/{id}/dokter', [AdminDokter::class, 'edit'])->name('adm.dokter.edit');
         Route::get('/staff/dokter/add', [AdminDokter::class, 'create'])->name('adm.dokter.add');
 
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dokter extends Model
 {
@@ -12,6 +13,7 @@ class Dokter extends Model
          * Phone: 082371408678
          * Github: https://github.com/alexistdev
          */
+    use SoftDeletes;
 
     protected $table = "dokters";
 

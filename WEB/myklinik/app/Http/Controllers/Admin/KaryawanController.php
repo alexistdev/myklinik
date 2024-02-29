@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\KaryawanRequest;
-use App\Models\Karyawans;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Admin\KaryawanService;
@@ -21,7 +20,7 @@ class KaryawanController extends Controller
      * Phone: 082371408678
      * Github: https://github.com/alexistdev
      */
-    protected $users;
+    protected User $users;
     protected KaryawanService $karyawanService;
 
     public function __construct(KaryawanService $karyawanService)

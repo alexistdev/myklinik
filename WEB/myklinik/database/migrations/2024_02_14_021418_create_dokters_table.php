@@ -22,6 +22,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('no_izin');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
