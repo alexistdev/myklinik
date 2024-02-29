@@ -2,7 +2,9 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\DokterRequest;
 use App\Http\Requests\Admin\KaryawanRequest;
+use App\Models\Dokter;
 use App\Models\Karyawans;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -64,14 +66,19 @@ class KaryawanServiceImpl implements KaryawanService
 
     public function save(KaryawanRequest $request)
     {
+        $idUser = $this->save_user($request);
+        $this->save_karyawan($request,$idUser);
+    }
+
+    private function save_user($request)
+    {
         $user = new User();
         $user->role_id = base64_decode($request->role_id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->nip);
         $user->save();
-        $idUser = $user->id;
-        $this->save_karyawan($request,$idUser);
+        return $user->id;
     }
 
     private function save_karyawan($karyawans, int $userId):int
@@ -174,6 +181,18 @@ class KaryawanServiceImpl implements KaryawanService
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function save_dokter(DokterRequest $request):void
+    {
+        $request['role_id'] = base64_encode('4');
+        $idUser = $this->save_user($request);
+        $idKaryawan = $this->save_karyawan($request,$idUser);
+        $dokter = new Dokter();
+        $dokter->karyawan_id = $idKaryawan;
+        $dokter->poliklinik_id = base64_decode($request->poli_id);
+        $dokter->no_izin = $request->izin;
+        $dokter->save();
     }
 
 

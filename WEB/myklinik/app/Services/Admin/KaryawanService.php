@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\DokterRequest;
 use App\Http\Requests\Admin\KaryawanRequest;
 use Illuminate\Http\Request;
 
@@ -25,4 +26,6 @@ interface KaryawanService
      *  Dokter
      */
     public function index_dokter(Request $request);
+
+    public function save_dokter(DokterRequest $request);
 }

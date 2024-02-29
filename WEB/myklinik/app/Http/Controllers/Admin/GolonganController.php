@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GolonganRequest;
+use App\Models\User;
 use App\Services\Admin\GolonganService;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class GolonganController extends Controller
          * Github: https://github.com/alexistdev
          */
 
-    protected $users;
+    protected User $users;
     protected GolonganService $golonganService;
 
     public function __construct(GolonganService $golonganService)

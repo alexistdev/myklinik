@@ -60,6 +60,8 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::delete('/staff/karyawan', [AdminKaryawan::class, 'destroy'])->name('adm.karyawan.delete');
 
         Route::get('/staff/dokter', [AdminDokter::class, 'index'])->name('adm.dokter');
+        Route::post('/staff/dokter', [AdminDokter::class, 'store'])->name('adm.dokter.save');
+        Route::get('/staff/dokter/add', [AdminDokter::class, 'create'])->name('adm.dokter.add');
 
 
     });

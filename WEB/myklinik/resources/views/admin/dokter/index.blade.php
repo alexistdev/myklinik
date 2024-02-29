@@ -16,12 +16,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
-                        <h4 class="mb-sm-0">Data Karyawan</h4>
+                        <h4 class="mb-sm-0">Data Dokter</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('adm.dashboard')}}">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Data Karyawan</li>
+                                <li class="breadcrumb-item active">Data Dokter</li>
                             </ol>
                         </div>
 
@@ -34,7 +34,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{route('adm.karyawan.add')}}"><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                            <a href="{{route('adm.dokter.add')}}"><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
                                 ADD
                             </button></a>
                         </div>
