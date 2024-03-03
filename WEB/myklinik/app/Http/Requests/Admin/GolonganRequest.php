@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2024.
+ * Develop By: Alexsander Hendra Wijaya
+ * Github: https://github.com/alexistdev
+ * Phone : 0823-7140-8678
+ * Email : Alexistdev@gmail.com
+ */
 
 namespace App\Http\Requests\Admin;
 
@@ -8,12 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 class GolonganRequest extends FormRequest
 {
-    /**
-         * Author: AlexistDev
-         * Email: Alexistdev@gmail.com
-         * Phone: 082371408678
-         * Github: https://github.com/alexistdev
-         */
 
     public function authorize(): bool
     {

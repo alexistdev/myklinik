@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2024.
+ * Develop By: Alexsander Hendra Wijaya
+ * Github: https://github.com/alexistdev
+ * Phone : 0823-7140-8678
+ * Email : Alexistdev@gmail.com
+ */
 
 namespace App\Providers;
 
@@ -17,12 +24,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-         * Author: AlexistDev
-         * Email: Alexistdev@gmail.com
-         * Phone: 082371408678
-         * Github: https://github.com/alexistdev
-         */
 
     public $bindings = [
             KategoriService::class => KategoriServiceImpl::class,

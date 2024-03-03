@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2024.
+ * Develop By: Alexsander Hendra Wijaya
+ * Github: https://github.com/alexistdev
+ * Phone : 0823-7140-8678
+ * Email : Alexistdev@gmail.com
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -12,12 +19,6 @@ use Illuminate\Support\Facades\DB;
 
 class PoliklinikController extends Controller
 {
-    /**
-     * Author: AlexistDev
-     * Email: Alexistdev@gmail.com
-     * Phone: 082371408678
-     * Github: https://github.com/alexistdev
-     */
 
     protected $users;
     protected PoliklinikService $poliklinikService;

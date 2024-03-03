@@ -1,8 +1,14 @@
 <?php
+/*
+ * Copyright (c) 2024.
+ * Develop By: Alexsander Hendra Wijaya
+ * Github: https://github.com/alexistdev
+ * Phone : 0823-7140-8678
+ * Email : Alexistdev@gmail.com
+ */
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider

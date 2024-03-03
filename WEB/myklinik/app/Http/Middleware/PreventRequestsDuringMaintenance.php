@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2024.
+ * Develop By: Alexsander Hendra Wijaya
+ * Github: https://github.com/alexistdev
+ * Phone : 0823-7140-8678
+ * Email : Alexistdev@gmail.com
+ */
 
 namespace App\Http\Middleware;
 
@@ -6,11 +13,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Mi
 
 class PreventRequestsDuringMaintenance extends Middleware
 {
-    /**
-     * The URIs that should be reachable while maintenance mode is enabled.
-     *
-     * @var array<int, string>
-     */
+
     protected $except = [
         //
     ];
