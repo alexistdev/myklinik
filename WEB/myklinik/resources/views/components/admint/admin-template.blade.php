@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-bs-theme="dark" data-body-image="img-1" data-preloader="disable">
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+      data-sidebar-image="none" data-bs-theme="dark" data-body-image="img-1" data-preloader="disable">
 
 <head>
 
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>{{$title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Aplikasi My Klinik" name="description" />
-    <meta content="MyKlinik" name="alexistdev" />
-    <x-admint.header-layout-admin />
+    <meta content="Aplikasi My Klinik" name="description"/>
+    <meta content="MyKlinik" name="alexistdev"/>
+    <x-admint.header-layout-admin/>
     @stack('customCss')
 </head>
 
@@ -17,7 +18,7 @@
 <!-- Begin page -->
 <div id="layout-wrapper">
     <!-- Start: Topbar -->
-    <x-admint.topbar-layout-admin />
+    <x-admint.topbar-layout-admin/>
     <!-- End: Topbar -->
 
     <!-- removeNotificationModal -->
@@ -25,11 +26,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="NotificationModalbtn-close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mt-2 text-center">
-                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                   colors="primary:#f7b84b,secondary:#f06548"
+                                   style="width:100px;height:100px"></lord-icon>
                         <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                             <h4>Are you sure ?</h4>
                             <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
@@ -37,17 +41,21 @@
                     </div>
                     <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                         <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
+                        <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!
+                        </button>
                     </div>
                 </div>
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-    <!-- Start: Sidebar -->
-    <x-admint.sidebar-layout-admin :first-menu="$firstMenu" :second-menu="$secondMenu"/>
-    <!-- End: Sidebar -->
+    @if(Auth::user()->role_id == "2")
+        <!-- Start: Sidebar -->
+        <x-admint.sidebar-layout-admin :first-menu="$firstMenu" :second-menu="$secondMenu"/>
+        <!-- End: Sidebar -->
+    @else
+        <x-admint.sidebar-layout-front :first-menu="$firstMenu" :second-menu="$secondMenu" />
+    @endif
 
     <!-- Vertical Overlay-->
     <div class="vertical-overlay"></div>
@@ -61,7 +69,7 @@
         <!-- End: Content -->
 
         <!-- Start: Footer -->
-        <x-admint.footer-layout-admin />
+        <x-admint.footer-layout-admin/>
         <!-- End: Footer -->
     </div>
     <!-- end main content-->
@@ -76,7 +84,7 @@
 <!--end back-to-top-->
 
 <!-- Start: Javascript -->
-<x-admint.js-layout-admin />
+<x-admint.js-layout-admin/>
 <!-- End: Javascript -->
 @stack('customJs')
 </body>

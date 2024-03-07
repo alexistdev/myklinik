@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     PoliklinikController as AdminPoli,
     KaryawanController as AdminKaryawan,
     DokterController as AdminDokter};
+use App\Http\Controllers\Pendaftaran\{DashboardController as FrontDashboard};
 
 
 Route::redirect('/', '/login');
@@ -71,6 +72,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/staff/dokter/add', [AdminDokter::class, 'create'])->name('adm.dokter.add');
 
 
+    });
+
+    Route::group(['roles' => 'pendaftaran'], function () {
+        Route::get('/front/dashboard', [FrontDashboard::class, 'index'])->name('front.dashboard');
     });
 });
 

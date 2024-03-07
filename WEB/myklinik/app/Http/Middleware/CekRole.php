@@ -29,7 +29,7 @@ class CekRole
         if ($request->user()->hasRole($roles) || !$roles) {
             return $next($request);
         }
-        return abort(401, 'NOT AUTH');
+        return abort(404, 'NOT FOUND');
     }
 
     private function CekRoute($route)
