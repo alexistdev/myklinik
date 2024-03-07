@@ -20,10 +20,6 @@ return new class extends Migration
     {
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->string('kode_pasien');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');

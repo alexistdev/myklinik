@@ -42,7 +42,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link menu-link @if($firstMenu == "poliklinik") active @endif" href="{{route('adm.poli')}}">
+                        <a class="nav-link menu-link @if($firstMenu == "pendaftaran") active @endif" href="{{route('front.pendaftaran')}}">
                             <i class="ri-asterisk"></i> <span data-key="t-dashboards">Pendaftaran</span>
                         </a>
                     </li>

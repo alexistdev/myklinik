@@ -17,5 +17,5 @@ class Pasien extends Model
     use SoftDeletes;
 
     protected $table = "pasiens";
-    protected $fillable = ['user_id','kode_pasien','tanggal_lahir','tempat_lahir','sex','agama','pendidikan','phone','gol_darah','pekerjaan','alamat'];
+    protected $fillable = ['kode_pasien','tanggal_lahir','tempat_lahir','sex','agama','pendidikan','phone','gol_darah','pekerjaan','alamat'];
 }
