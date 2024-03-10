@@ -18,8 +18,13 @@ Aplikasi berbasis web untuk manajemen klinik seperti: apotik, pendaftaran dan ri
 #### Administrator:
     - Username: admin@gmail.com
     - Password: 1234
+#### Bag.Pendaftaran:
+    - Username: pendaftaran@gmail.com
+    - Password: 1234
 
 ## Panduan Installasi Android:
 - ongoing developed
 <br />
 <img src="https://github.com/alexistdev/myklinik/blob/main/IMAGES/gambar1.png?raw=true" width="1200px">
+<br />
+<img src="https://github.com/alexistdev/myklinik/blob/main/IMAGES/gambar2.png?raw=true" width="1200px">
