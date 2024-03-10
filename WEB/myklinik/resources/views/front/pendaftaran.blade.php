@@ -2,10 +2,10 @@
     @push('customCss')
         <!--datatable css-->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>
-        <!--datatable responsive css-->
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"/>
-
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+        <!--picker-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <style>
             .select option {
                 color: whitesmoke !important;
@@ -71,46 +71,53 @@
                                     <div class="col-lg-4">
                                         <label for="kodePasien" class="form-label">KODE PASIEN <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
                                         <div class="input-group">
-                                            <input type="text" name="kode_pasien" class="form-control"
+                                            <input type="text" name="kode_pasien"
+                                                   class="form-control @if($errors->has('kode_pasien')) is-invalid @endif"
                                                    aria-label="Check Pasien" id="kodePasien" placeholder="AUTO GENERATE"
+                                                   value="{{old('kode_pasien',$dataPasien->kode_pasien ??"")}}"
                                                    readonly>
                                             <button class="btn btn-outline-success" type="button" id="check"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                                    data-bs-toggle="modal" data-bs-target="#modalPasien"><i
                                                     class="ri-search-2-line"></i></button>
                                             <button class="btn btn-outline-primary" type="button" id="newPasien"><i
                                                     class="ri-add-box-fill"></i></button>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
-                                        <label for="hargaObat" class="form-label">NAMA LENGKAP <span
+                                        <label for="namaLengkap" class="form-label">NAMA LENGKAP <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="NAMA LENGKAP">
+                                        <input type="text" name="nama_lengkap"
+                                               class="form-control @if($errors->has('nama_lengkap')) is-invalid @endif"
+                                               placeholder="NAMA LENGKAP" id="namaLengkap"
+                                               value="{{old('nama_lengkap',$dataPasien->nama_lengkap ??"")}}">
                                     </div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-4">
-                                        <label for="hargaObat" class="form-label">TEMPAT LAHIR <span
+                                        <label for="tempat_lahir" class="form-label ">TEMPAT LAHIR <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="NAMA LENGKAP">
+                                        <input type="text" name="tempat_lahir"
+                                               class="form-control @if($errors->has('tempat_lahir')) is-invalid @endif"
+                                               placeholder="TEMPAT LAHIR" id="tempat_lahir"
+                                               value="{{old('tempat_lahir',$dataPasien->tempat_lahir ??"")}}">
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="hargaObat" class="form-label">TANGGAL LAHIR <span
+                                        <label for="tanggal_lahir" class="form-label">TANGGAL LAHIR <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="NAMA LENGKAP">
+                                        <input type="text" name="tanggal_lahir" class="form-control @if($errors->has('tanggal_lahir')) is-invalid @endif"
+                                               placeholder="TANGGAL LAHIR"
+                                               id="tanggal_lahir"
+                                               value="{{old('tanggal_lahir',$dataPasien->tanggal_lahir ??"")}}">
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="sex" class="form-label">JENIS KELAMIN </label>
                                         <select name="sex" id="sex" class="form-control select">
-                                            <option value="{{\App\Enum\GenderEnum::PRIA}}"
-                                                    @if(\App\Enum\GenderEnum::PRIA == old('sex')) selected @endif>Pria
+                                            <option value="L"
+                                                    @if("L" == old('sex',$dataPasien->sex ?? "")) selected @endif>Pria
                                             </option>
-                                            <option value="{{\App\Enum\GenderEnum::WANITA}}"
-                                                    @if(\App\Enum\GenderEnum::WANITA == old('sex')) selected @endif>
+                                            <option value="P"
+                                                    @if("P" == old('sex',$dataPasien->sex ?? "")) selected @endif>
                                                 Wanita
                                             </option>
                                         </select>
@@ -121,57 +128,87 @@
                                     <div class="col-lg-4">
                                         <label for="agama" class="form-label">AGAMA </label>
                                         <select name="agama" id="agama" class="form-control select">
-                                            <option value="ISLAM" @if("ISLAM" == old('agama')) selected @endif>ISLAM
+                                            <option value="ISLAM"
+                                                    @if("ISLAM" == old('agama',$dataPasien->agama ?? "")) selected @endif>
+                                                ISLAM
                                             </option>
-                                            <option value="KATOLIK" @if("KATOLIK" == old('agama')) selected @endif>
+                                            <option value="KATOLIK"
+                                                    @if("KATOLIK" == old('agama',$dataPasien->agama ?? "")) selected @endif>
                                                 KATOLIK
                                             </option>
-                                            <option value="KRISTEN" @if("KRISTEN" == old('agama')) selected @endif>
+                                            <option value="KRISTEN"
+                                                    @if("KRISTEN" == old('agama',$dataPasien->agama ?? "")) selected @endif>
                                                 KRISTEN
                                             </option>
-                                            <option value="HINDU" @if("HINDU" == old('agama')) selected @endif>HINDU
+                                            <option value="HINDU"
+                                                    @if("HINDU" == old('agama',$dataPasien->agama ?? "")) selected @endif>
+                                                HINDU
                                             </option>
-                                            <option value="BUDHA" @if("BUDHA" == old('agama')) selected @endif>BUDHA
+                                            <option value="BUDHA"
+                                                    @if("BUDHA" == old('agama',$dataPasien->agama ?? "")) selected @endif>
+                                                BUDHA
                                             </option>
-                                            <option value="KONGHUCU" @if("KONGHUCU" == old('agama')) selected @endif>
+                                            <option value="KONGHUCU"
+                                                    @if("KONGHUCU" == old('agama',$dataPasien->agama ?? "")) selected @endif>
                                                 KONGHUCU
                                             </option>
                                             <option value="KEPERCAYAAN"
-                                                    @if("KEPERCAYAAN" == old('agama')) selected @endif>KEPERCAYAAN
+                                                    @if("KEPERCAYAAN" == old('agama',$dataPasien->agama ?? "")) selected @endif>
+                                                KEPERCAYAAN
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="pendidikan" class="form-label">PENDIDIKAN </label>
                                         <select name="pendidikan" id="pendidikan" class="form-control select">
-                                            <option value="SD" @if("SD" == old('pendidikan')) selected @endif>SD
+                                            <option value="SD"
+                                                    @if("SD" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
+                                                SD
                                             </option>
-                                            <option value="SMP" @if("SMP" == old('pendidikan')) selected @endif>SMP
+                                            <option value="SMP"
+                                                    @if("SMP" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
+                                                SMP
                                             </option>
-                                            <option value="SMA/SMK" @if("SMA/SMK" == old('pendidikan')) selected @endif>
+                                            <option value="SMA/SMK"
+                                                    @if("SMA/SMK" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
                                                 SMA/SMK
                                             </option>
                                             <option value="D1/D2/D3"
-                                                    @if("D1/D2/D3" == old('pendidikan')) selected @endif>D1/D2/D3
+                                                    @if("D1/D2/D3" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
+                                                D1/D2/D3
                                             </option>
-                                            <option value="S1" @if("S1" == old('pendidikan')) selected @endif>S1
+                                            <option value="S1"
+                                                    @if("S1" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
+                                                S1
                                             </option>
-                                            <option value="S2" @if("S2" == old('pendidikan')) selected @endif>S2
+                                            <option value="S2"
+                                                    @if("S2" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
+                                                S2
                                             </option>
-                                            <option value="S3" @if("S3" == old('pendidikan')) selected @endif>S3
+                                            <option value="S3"
+                                                    @if("S3" == old('pendidikan',$dataPasien->pendidikan ?? "")) selected @endif>
+                                                S3
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="golongan_darah" class="form-label">GOLONGAN DARAH </label>
                                         <select name="golongan_darah" id="golongan_darah" class="form-control select">
-                                            <option value="A" @if("A" == old('golongan_darah')) selected @endif>A
+                                            <option value="A"
+                                                    @if("A" == old('golongan_darah',$dataPasien->gol_darah ?? "")) selected @endif>
+                                                A
                                             </option>
-                                            <option value="B" @if("B" == old('golongan_darah')) selected @endif>B
+                                            <option value="B"
+                                                    @if("B" == old('golongan_darah',$dataPasien->gol_darah ?? "")) selected @endif>
+                                                B
                                             </option>
-                                            <option value="AB" @if("AB" == old('golongan_darah')) selected @endif>AB
+                                            <option value="AB"
+                                                    @if("AB" == old('golongan_darah',$dataPasien->gol_darah ?? "")) selected @endif>
+                                                AB
                                             </option>
-                                            <option value="O" @if("O" == old('golongan_darah')) selected @endif>O
+                                            <option value="O"
+                                                    @if("O" == old('golongan_darah',$dataPasien->gol_darah ?? "")) selected @endif>
+                                                O
                                             </option>
                                         </select>
                                     </div>
@@ -179,25 +216,23 @@
 
                                 <div class="row mt-4">
                                     <div class="col-lg-4">
-                                        <label for="hargaObat" class="form-label">PHONE <span
-                                                class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="PHONE">
+                                        <label for="phone" class="form-label">PHONE </label>
+                                        <input type="text" name="phone" id="phone" class="form-control"
+                                               placeholder="PHONE" value="{{old('phone',$dataPasien->phone ?? "")}}">
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="hargaObat" class="form-label">PEKERJAAN <span
-                                                class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="PEKERJAAN">
+                                        <label for="pekerjaan" class="form-label">PEKERJAAN </label>
+                                        <input type="text" name="pekerjaan" id="pekerjaan" class="form-control"
+                                               placeholder="PEKERJAAN"
+                                               value="{{old('pekerjaan',$dataPasien->pekerjaan ?? "")}}">
                                     </div>
                                 </div>
 
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">ALAMAT <span
-                                                class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <textarea name="" class="form-control" id="" cols="30" rows="3"></textarea>
+                                        <label for="alamat" class="form-label">ALAMAT </label>
+                                        <textarea name="alamat" class="form-control" id="alamat" cols="30"
+                                                  rows="3">{{old('alamat',$dataPasien->alamat ?? "")}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -266,6 +301,9 @@
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
                                         <button class="btn btn-sm btn-success" type="submit">SIMPAN</button>
+                                        <a href="{{route('front.pendaftaran')}}">
+                                            <button class="btn btn-sm btn-danger" type="button">RESET</button>
+                                        </a>
                                     </div>
                                 </div>
 
@@ -279,7 +317,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalPasien" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -306,7 +344,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">PASIEN BARU</button>
                 </div>
             </div>
         </div>
@@ -318,51 +355,84 @@
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        <!--picker-->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
-
-            let input = $('.inputForm');
-
+            const modalPasien = document.getElementById('modalPasien');
+            const kodePasien = document.getElementById('kodePasien');
+            const namaPasien = document.getElementById('namaLengkap');
+            const tempatLahir = document.getElementById('tempat_lahir');
+            const tanggalLahir = document.getElementById('tanggal_lahir');
+            const sex = document.getElementById('sex');
+            const agama = document.getElementById('agama');
+            const pendidikan = document.getElementById('pendidikan');
+            const golonganDarah = document.getElementById('golongan_darah');
+            const phone = document.getElementById('phone');
+            const pekerjaan = document.getElementById('pekerjaan');
+            const alamat = document.getElementById('alamat');
 
             function generateNewCode() {
                 let urlGenerateCode = '{{route('front.ajax.getCode')}}';
-                let kodePasien = document.getElementById('kodePasien')
-
+                if (kodePasien.classList.contains("is-invalid")) {
+                    kodePasien.classList.remove("is-invalid");
+                }
+                removeClassArray([kodePasien, namaPasien, tempatLahir,tanggalLahir]);
                 $.ajax({
-                    url : urlGenerateCode,
-                    type : 'GET',
-                    dataType:'json',
-                    success : function(response) {
+                    url: urlGenerateCode,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
                         kodePasien.value = response;
+                        clearInput();
                     },
-                    error : function(request,error)
-                    {
+                    error: function (request, error) {
                         console.log(error);
                     }
                 });
             }
 
-            input.keyup(function () {
-                let val = $(this).val().toLowerCase();
-                $(this).val(val);
-            })
+            function removeClassWithEvent(Object, event) {
+                for (let i = 0; i < Object.length; i++) {
+                    Object[i].addEventListener(event, function () {
+                        removeClass(Object[i]);
+                    });
+                }
+            }
+
+            function removeClassArray(Object) {
+                for (let i = 0; i < Object.length; i++) {
+                    removeClass(Object[i]);
+                }
+            }
+
+            function removeClass(Object) {
+                if (Object.classList.contains("is-invalid")) {
+                    Object.classList.remove("is-invalid");
+                }
+            }
+
+            function clearInput() {
+                namaPasien.value = "";
+                tempatLahir.value = "";
+                tanggalLahir.value = "";
+                sex.value = "L";
+                agama.value = "ISLAM";
+                pendidikan.value = "SD";
+                golonganDarah.value = "A";
+                phone.value = "";
+                pekerjaan.value = "";
+                alamat.value = "";
+            }
 
             setTimeout(function () {
                     $('.alert').fadeOut('slow');
                 }, 2000
             );
 
-            $(document).on("click", ".open-edit", function (e) {
+            $(document).on("click", ".open-selected", function (e) {
                 e.preventDefault();
                 let fid = $(this).data('id');
-                let fname = $(this).data('name');
-                $('#golongan_id').val(fid);
-                $('#nameEdit').val(fname);
-            })
-
-            $(document).on("click", ".open-hapus", function (e) {
-                e.preventDefault();
-                let fid = $(this).data('id');
-                $('#golongan_id_delete').val(fid);
+                window.location.href = "{{ route('front.pendaftaran')."?pasien="}}" + fid;
             })
 
             $('.modal').on('hidden.bs.modal', function (e) {
@@ -374,6 +444,16 @@
             });
 
             $(document).ready(function () {
+
+                removeClassWithEvent([namaPasien, tempatLahir], 'keypress');
+                removeClassWithEvent([tanggalLahir], 'change');
+
+                flatpickr(tanggalLahir, {
+                    altInput: false,
+                    altFormat: "F j, Y",
+                    dateFormat: "Y-m-d",
+                });
+
                 let base_url = "{{route('front.ajax.getdatapasien')}}";
                 let buttonNew = document.getElementById('newPasien');
                 buttonNew.addEventListener("click", generateNewCode);
@@ -397,23 +477,19 @@
                             searchable: false,
                             width: '5%',
                             render: function (data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
+                                return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
                         {data: 'kode_pasien', class: 'text-left', width: '10%'},
                         {data: 'nama_lengkap', class: 'text-left'},
                         {data: 'alamat', class: 'text-left'},
                         {data: 'phone', class: 'text-center', width: '5%'},
-                        // {data: 'poliklinik', class: 'text-center',width: '10%'},
-                        // {data: 'email', class: 'text-left',width: '15%'},
-                        // {data: 'phone', class: 'text-center',width: '10%'},
-                        // {data: 'alamat', class: 'text-center',width: '15%'},
-                        // {data: 'created_at', class: 'text-center', width: '10%'},
                         {data: 'action', class: 'text-center', width: '10%', orderable: false},
                     ],
                     "bDestroy": true
                 });
             });
         </script>
+
     @endpush
 </x-admint.admin-template>

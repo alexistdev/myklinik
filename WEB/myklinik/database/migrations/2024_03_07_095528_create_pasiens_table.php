@@ -27,10 +27,10 @@ return new class extends Migration
             $table->string('sex',1);
             $table->string('agama');
             $table->string('pendidikan');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('gol_darah',2);
-            $table->string('pekerjaan');
-            $table->string('alamat');
+            $table->string('pekerjaan')->nullable();
+            $table->string('alamat')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
