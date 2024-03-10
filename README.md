@@ -23,7 +23,7 @@ Aplikasi berbasis web untuk manajemen klinik seperti: apotik, pendaftaran dan ri
     - Password: 1234
 
 ## Panduan Installasi Android:
-- ongoing developed
+- developed not started yet
 <br />
 <img src="https://github.com/alexistdev/myklinik/blob/main/IMAGES/gambar1.png?raw=true" width="1200px">
 <br />
