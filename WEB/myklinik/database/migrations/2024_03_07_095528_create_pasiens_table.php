@@ -21,6 +21,7 @@ return new class extends Migration
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
             $table->string('kode_pasien');
+            $table->string('nama_lengkap');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');
             $table->string('sex',1);

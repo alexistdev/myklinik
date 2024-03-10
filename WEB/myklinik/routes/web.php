@@ -78,6 +78,11 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'pendaftaran'], function () {
         Route::get('/front/dashboard', [FrontDashboard::class, 'index'])->name('front.dashboard');
         Route::get('/front/pendaftaran', [FrontDaftar::class, 'index'])->name('front.pendaftaran');
+        Route::post('/front/pendaftaran', [FrontDaftar::class, 'store'])->name('front.pendaftaran.save');
+
+
+        Route::get('/front/ajax/get_data_pasien', [FrontDaftar::class, 'getDataPasien'])->name('front.ajax.getdatapasien');
+        Route::get('/front/ajax/get_code', [FrontDaftar::class, 'generateCode'])->name('front.ajax.getCode');
     });
 });
 
