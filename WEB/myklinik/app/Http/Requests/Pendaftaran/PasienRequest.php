@@ -38,6 +38,13 @@ class PasienRequest extends FormRequest
             $rules['phone'] =  'nullable|max:50';
             $rules['pekerjaan'] =  'nullable|max:255';
             $rules['alamat'] =  'nullable|max:255';
+            $rules['tekanan_darah'] =  'required|max:3';
+            $rules['rate'] =  'required|max:3';
+            $rules['suhu_badan'] =  'required|max:3';
+            $rules['berat_badan'] =  'required|max:3';
+            $rules['tinggi_badan'] =  'required|max:3';
+            $rules['keluhan_utama'] =  'required|max:255';
+            $rules['dokter_id'] =  'required|max:255';
             return $rules;
         }
         abort('4014', 'NOT FOUND');
@@ -66,7 +73,20 @@ class PasienRequest extends FormRequest
             'phone.max' => "Panjang karakter maksimal adalah 50 karakter!",
             'pekerjaan.max' => "Panjang karakter maksimal adalah 255 karakter!",
             'alamat.max' => "Panjang karakter maksimal adalah 255 karakter!",
-
+            'tekanan_darah.required' => "Tekanan Darah harus diisi!",
+            'tekanan_darah.max' => "Panjang karakter maksimal adalah 3 karakter!",
+            'rate.required' => "Rate harus diisi!",
+            'rate.max' => "Panjang karakter maksimal adalah 3 karakter!",
+            'suhu_badan.required' => "Suhu badan harus diisi!",
+            'suhu_badan.max' => "Panjang karakter maksimal adalah 3 karakter!",
+            'berat_badan.required' => "Berat badan harus diisi!",
+            'berat_badan.max' => "Panjang karakter maksimal adalah 3 karakter!",
+            'tinggi_badan.required' => "Tinggi badan harus diisi!",
+            'tinggi_badan.max' => "Panjang karakter maksimal adalah 3 karakter!",
+            'keluhan_utama.required' => "Keluhan pasien harus diisi!",
+            'keluhan_utama.max' => "Panjang karakter maksimal adalah 255 karakter!",
+            'dokter_id.required' => "Silahkan Pilih Poliklinik Terlebih dahulu!",
+            'dokter_id.max' => "Silahkan Pilih Poliklinik Terlebih dahulu!",
         ];
         return $message;
     }

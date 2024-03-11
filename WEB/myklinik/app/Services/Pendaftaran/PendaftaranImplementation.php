@@ -11,6 +11,7 @@ namespace App\Services\Pendaftaran;
 
 use App\Http\Requests\Pendaftaran\PasienRequest;
 use App\Models\Pasien;
+use App\Models\Rekam;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -48,6 +49,55 @@ class PendaftaranImplementation implements PendaftaranService
            'alamat' => $request->alamat,
         ]);
     }
+
+    private function create_rekam($request,$idPasien,$createdBy):void
+    {
+        $rekam = new Rekam();
+        $rekam->pasien_id = $idPasien;
+        $rekam->dokter_id = base64_decode($request->dokter_id);
+        $rekam->kode_rekam = $this->generateCode();
+        $rekam->tekanan_darah = $request->tekanan_darah;
+        $rekam->rate = $request->rate;
+        $rekam->suhu_badan = $request->suhu_badan;
+        $rekam->berat_badan = $request->berat_badan;
+        $rekam->tinggi_badan = $request->tinggi_badan;
+        $rekam->keluhan_utama = $request->keluhan_utama;
+        $rekam->created_by = $createdBy;
+        $rekam->status = 0;
+        $rekam->save();
+    }
+
+    public function generateCode():string
+    {
+        do {
+            $totalData = 7;
+            $prefix = "AGTS-" . date("mY") . "-";
+            $lastPasien = Rekam::orderBy('id', 'desc')->first();
+            if ($lastPasien != null) {
+                $lastId = ((int)$lastPasien->id) + 1;
+                $length = strlen($lastId);
+                if ($length > 0 && $length <= $totalData) {
+                    $finalCode = $this->generateZero($totalData,$length,$lastId);
+                } else if($length > $totalData){
+                    $finalCode = $this->generateZero($totalData+1,$length,$lastId);
+                } else {
+                    $finalCode = "00000001";
+                }
+            }
+            $code = $prefix . $finalCode;
+        } while (Pasien::where('kode_pasien', $code)->exists());
+        return $code;
+    }
+
+    private function generateZero($totalData, $length, $lastId):string
+    {
+        $str = "0";
+        for ($i = 0; $i < (($totalData - 1) - $length); $i++) {
+            $str = $str . "0";
+        }
+        return $str . $lastId;
+    }
+
 
 
     public function getDataPasien(Request $request)

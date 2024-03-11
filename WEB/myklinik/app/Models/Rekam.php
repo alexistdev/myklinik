@@ -9,20 +9,18 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Poliklinik extends Model
+class Rekam extends Model
 {
-
     use SoftDeletes;
 
-    protected $table = "polikliniks";
+    protected $table = "rekams";
 
-    protected $fillable = ["name"];
-
-    public function dokter(){
-        return $this->belongsTo(Dokter::class,'id','poliklinik_id');
-    }
-
+    protected $fillable = ['dokter_id','kode_rekam',
+        'tekanan_darah','rate','suhu_badan',
+        'berat_badan','tinggi_badan','keluhan_utama',
+        'diagnosis','deskripsi_tindakan','created_by','status'];
 }

@@ -12,13 +12,13 @@ namespace App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pendaftaran\PasienRequest;
 use App\Models\Pasien;
+use App\Models\Poliklinik;
 use App\Models\User;
 use App\Services\Pendaftaran\PendaftaranService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
 
 class PendaftaranController extends Controller
 {
@@ -48,12 +48,16 @@ class PendaftaranController extends Controller
                 abort('404','NOT FOUND');
             }
         }
-
+        $poliklinik =Poliklinik::with('dokter')->orderBy('name','asc')->get();
+        $filteredPoliklinik = $poliklinik->filter(function ($poliklinik) {
+            return $poliklinik->dokter != null;
+        });
         return view('front.pendaftaran', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'pendaftaran',
             'secondMenu' => 'pendaftaran',
-            'dataPasien' => $dataPasien
+            'dataPasien' => $dataPasien,
+            'dataPoli' => $filteredPoliklinik
         ));
     }
 

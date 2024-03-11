@@ -244,58 +244,57 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">TEKANAN DARAH (TD) <span
+                                        <label for="tekanan_darah" class="form-label">TEKANAN DARAH (TD) <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="mmHg">
+                                        <input type="text" name="tekanan_darah" id="tekanan_darah"
+                                               class="form-control @if($errors->has('tekanan_darah')) is-invalid @endif" placeholder="mmHg" value="{{old('tekanan_darah')}}" maxlength="3">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">N <span
+                                        <label for="dokter_id" class="form-label">POLIKLINIK</label>
+                                        <select name="dokter_id" id="dokter_id" class="form-control select @if($errors->has('dokter_id')) is-invalid @endif">
+                                            <option value="">==</option>
+                                            @foreach($dataPoli as $poli)
+                                                <option value="{{base64_encode($poli->dokter->id ?? "")}}" @if(base64_encode($poli->dokter->id) == old('dokter_id') ) selected @endif>{{$poli->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-lg-12">
+                                        <label for="rate" class="form-label">RATE <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="x/min">
+                                        <input type="text" id="rate" name="rate" class="form-control @if($errors->has('rate')) is-invalid @endif" placeholder="x/min" value="{{old('rate')}}" maxlength="3">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">RATE <span
+                                        <label for="suhu_badan" class="form-label">SUHU <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="x/min">
+                                        <input type="text" id="suhu_badan" name="suhu_badan" class="form-control @if($errors->has('suhu_badan')) is-invalid @endif" placeholder="*C" value="{{old('suhu_badan')}}" maxlength="3">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">SUHU <span
+                                        <label for="berat_badan" class="form-label">BERAT BADAN <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="*C">
+                                        <input type="text" id="berat_badan" name="berat_badan" class="form-control @if($errors->has('berat_badan')) is-invalid @endif" placeholder="kg" value="{{old('berat_badan')}}" maxlength="3">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">BERAT BADAN <span
+                                        <label for="tinggi_badan" class="form-label">TINGGI BADAN <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="kg">
+                                        <input type="text" id="tinggi_badan" name="tinggi_badan" class="form-control @if($errors->has('tinggi_badan')) is-invalid @endif" placeholder="cm" value="{{old('tinggi_badan')}}" maxlength="3">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">TINGGI BADAN <span
+                                        <label for="keluhan_utama" class="form-label">KELUHAN <span
                                                 class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <input type="text" class="form-control" placeholder="cm">
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-lg-12">
-                                        <label for="hargaObat" class="form-label">KELUHAN <span
-                                                class="text-danger">*</span></label>
-                                        <!-- Buttons Input -->
-                                        <textarea name="" class="form-control" id="" cols="30" rows="3"></textarea>
+                                        <textarea name="keluhan_utama" class="form-control @if($errors->has('keluhan_utama')) is-invalid @endif" id="keluhan_utama" cols="30" rows="3">{{old('keluhan_utama')}}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -370,13 +369,20 @@
             const phone = document.getElementById('phone');
             const pekerjaan = document.getElementById('pekerjaan');
             const alamat = document.getElementById('alamat');
+            const tekananDarah = document.getElementById('tekanan_darah');
+            const rate = document.getElementById('rate');
+            const suhuBadan = document.getElementById('suhu_badan');
+            const beratBadan = document.getElementById('berat_badan');
+            const tinggiBadan = document.getElementById('tinggi_badan');
+            const keluhanUtama = document.getElementById('keluhan_utama');
+            const dokterId = document.getElementById('dokter_id');
 
             function generateNewCode() {
                 let urlGenerateCode = '{{route('front.ajax.getCode')}}';
                 if (kodePasien.classList.contains("is-invalid")) {
                     kodePasien.classList.remove("is-invalid");
                 }
-                removeClassArray([kodePasien, namaPasien, tempatLahir,tanggalLahir]);
+                removeClassArray([kodePasien, namaPasien, tempatLahir,tanggalLahir,tekananDarah,rate,suhuBadan,beratBadan,tinggiBadan,keluhanUtama,dokterId]);
                 $.ajax({
                     url: urlGenerateCode,
                     type: 'GET',
@@ -445,8 +451,8 @@
 
             $(document).ready(function () {
 
-                removeClassWithEvent([namaPasien, tempatLahir], 'keypress');
-                removeClassWithEvent([tanggalLahir], 'change');
+                removeClassWithEvent([namaPasien, tempatLahir,tekananDarah,rate,suhuBadan,beratBadan,tinggiBadan,keluhanUtama], 'keypress');
+                removeClassWithEvent([tanggalLahir,dokterId], 'change');
 
                 flatpickr(tanggalLahir, {
                     altInput: false,
