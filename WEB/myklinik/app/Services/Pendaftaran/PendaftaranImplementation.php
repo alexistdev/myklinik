@@ -17,7 +17,7 @@ use Yajra\DataTables\DataTables;
 
 class PendaftaranImplementation implements PendaftaranService
 {
-    public function save(PasienRequest $request): void
+    public function save(PasienRequest $request,string $createdBy): void
     {
         $pasien = new Pasien();
         $pasien->kode_pasien = $request->kode_pasien;
@@ -32,9 +32,11 @@ class PendaftaranImplementation implements PendaftaranService
         $pasien->pekerjaan = $request->pekerjaan;
         $pasien->alamat = $request->alamat;
         $pasien->save();
+        $id = $pasien->id;
+        $this->create_rekam($request,$id,$createdBy);
     }
 
-    public function update(PasienRequest $request, int $id): void
+    public function update(PasienRequest $request, int $id, string $createdBy): void
     {
         Pasien::where('id',$id)->update([
            'nama_lengkap' => $request->nama_lengkap,
@@ -48,6 +50,8 @@ class PendaftaranImplementation implements PendaftaranService
            'pekerjaan' => $request->pekerjaan,
            'alamat' => $request->alamat,
         ]);
+
+        $this->create_rekam($request,$id,$createdBy);
     }
 
     private function create_rekam($request,$idPasien,$createdBy):void
@@ -71,6 +75,7 @@ class PendaftaranImplementation implements PendaftaranService
     {
         do {
             $totalData = 7;
+            $finalCode = "00000001";
             $prefix = "AGTS-" . date("mY") . "-";
             $lastPasien = Rekam::orderBy('id', 'desc')->first();
             if ($lastPasien != null) {
@@ -80,8 +85,6 @@ class PendaftaranImplementation implements PendaftaranService
                     $finalCode = $this->generateZero($totalData,$length,$lastId);
                 } else if($length > $totalData){
                     $finalCode = $this->generateZero($totalData+1,$length,$lastId);
-                } else {
-                    $finalCode = "00000001";
                 }
             }
             $code = $prefix . $finalCode;

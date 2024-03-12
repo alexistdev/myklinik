@@ -254,7 +254,6 @@
                                     <div class="col-lg-12">
                                         <label for="dokter_id" class="form-label">POLIKLINIK</label>
                                         <select name="dokter_id" id="dokter_id" class="form-control select @if($errors->has('dokter_id')) is-invalid @endif">
-                                            <option value="">==</option>
                                             @foreach($dataPoli as $poli)
                                                 <option value="{{base64_encode($poli->dokter->id ?? "")}}" @if(base64_encode($poli->dokter->id) == old('dokter_id') ) selected @endif>{{$poli->name}}</option>
                                             @endforeach

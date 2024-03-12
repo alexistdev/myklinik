@@ -73,7 +73,8 @@ class PendaftaranController extends Controller
     public function generateCode()
     {
         do {
-            $totalData = 7;
+            $totalData = 6;
+            $finalCode = "0000001";
             $lastPasien = Pasien::orderBy('id', 'desc')->first();
             if ($lastPasien != null) {
                 $lastId = ((int)$lastPasien->id) + 1;
@@ -82,8 +83,6 @@ class PendaftaranController extends Controller
                     $finalCode = $this->generateZero($totalData,$length,$lastId);
                 } else if($length > $totalData){
                     $finalCode = $this->generateZero($totalData+1,$length,$lastId);
-                } else {
-                    $finalCode = "00000001";
                 }
             }
             $code = $this->prefix . $finalCode;
@@ -106,9 +105,9 @@ class PendaftaranController extends Controller
         try {
             $cekUser = Pasien::where('kode_pasien',$request->kode_pasien)->first();
             if($cekUser != ""){
-                $this->pendaftaranService->update($request, $cekUser->id);
+                $this->pendaftaranService->update($request, $cekUser->id,$this->users->name ?? "");
             } else {
-                $this->pendaftaranService->save($request);
+                $this->pendaftaranService->save($request,$this->users->name ?? "");
             }
             DB::commit();
             return redirect(route('front.pendaftaran'))->with(['success' => "Pasien berhasil didaftarkan!"]);

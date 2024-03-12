@@ -14,9 +14,9 @@ use Illuminate\Http\Request;
 
 interface PendaftaranService
 {
-    public function save(PasienRequest $request):void;
+    public function save(PasienRequest $request, string $createdBy):void;
 
-    public function update(PasienRequest $request, int $id):void;
+    public function update(PasienRequest $request, int $id , string $createdBy):void;
 
     public function getDataPasien(Request $request);
 }
