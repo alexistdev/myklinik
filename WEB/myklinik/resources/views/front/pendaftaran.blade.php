@@ -48,10 +48,10 @@
                                                 <div>
                                                     <p class="fw-medium text-muted mb-0">Pasien Mengantri</p>
                                                     <h2 class="mt-4 ff-secondary fw-semibold"><span
-                                                            class="counter-value" data-target="0">0</span></h2>
-                                                    <p class="mb-0 text-muted">Berikutnya No<span
+                                                            class="counter-value" data-target="{{$onProsesAntrian}}">{{$onProsesAntrian}}</span></h2>
+                                                    <p class="mb-0 text-muted">Sisa antrian <span
                                                             class="badge bg-light text-success mb-0"><i
-                                                                class="ri-arrow-up-line align-middle"></i> 0 </span></p>
+                                                                class="ri-arrow-up-line align-middle"></i> {{$totalAntrian}} </span></p>
                                                 </div>
                                                 <div>
                                                     <div class="avatar-sm flex-shrink-0">

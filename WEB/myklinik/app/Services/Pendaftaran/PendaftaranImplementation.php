@@ -10,6 +10,7 @@
 namespace App\Services\Pendaftaran;
 
 use App\Http\Requests\Pendaftaran\PasienRequest;
+use App\Models\Antrian;
 use App\Models\Pasien;
 use App\Models\Rekam;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class PendaftaranImplementation implements PendaftaranService
         $pasien->alamat = $request->alamat;
         $pasien->save();
         $id = $pasien->id;
-        $this->create_rekam($request,$id,$createdBy);
+        $idRekam = $this->create_rekam($request,$id,$createdBy);
+        $this->createAntrian($idRekam);
     }
 
     public function update(PasienRequest $request, int $id, string $createdBy): void
@@ -51,10 +53,11 @@ class PendaftaranImplementation implements PendaftaranService
            'alamat' => $request->alamat,
         ]);
 
-        $this->create_rekam($request,$id,$createdBy);
+        $idRekam =  $this->create_rekam($request,$id,$createdBy);
+        $this->createAntrian($idRekam);
     }
 
-    private function create_rekam($request,$idPasien,$createdBy):void
+    private function create_rekam($request,$idPasien,$createdBy):int
     {
         $rekam = new Rekam();
         $rekam->pasien_id = $idPasien;
@@ -69,12 +72,20 @@ class PendaftaranImplementation implements PendaftaranService
         $rekam->created_by = $createdBy;
         $rekam->status = 0;
         $rekam->save();
+        return $rekam->id;
+    }
+
+    private function createAntrian($idRekam):void
+    {
+        $antrian = new Antrian();
+        $antrian->rekam_id = $idRekam;
+        $antrian->save();
     }
 
     public function generateCode():string
     {
         do {
-            $totalData = 7;
+            $totalData = 8;
             $finalCode = "00000001";
             $prefix = "AGTS-" . date("mY") . "-";
             $lastPasien = Rekam::orderBy('id', 'desc')->first();

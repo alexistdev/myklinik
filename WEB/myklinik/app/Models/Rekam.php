@@ -10,6 +10,7 @@
 namespace App\Models;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,4 +24,15 @@ class Rekam extends Model
         'tekanan_darah','rate','suhu_badan',
         'berat_badan','tinggi_badan','keluhan_utama',
         'diagnosis','deskripsi_tindakan','created_by','status'];
+
+    public function scopeToday($query)
+    {
+        return $query->where('created_at', '>=', Carbon::today());
+    }
+
+    public function antrian()
+    {
+        return $this->hasOne(Antrian::class,'rekam_id','id');
+    }
+
 }
