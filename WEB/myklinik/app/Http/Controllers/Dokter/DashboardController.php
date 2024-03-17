@@ -1,4 +1,5 @@
 <?php
+
 /******************************************************************************
  *                                                                            *
  *  * Copyright (c) 2024.                                                     *
@@ -9,26 +10,30 @@
  *                                                                            *
  ******************************************************************************/
 
-namespace App\View\Components\Admint;
+namespace App\Http\Controllers\Dokter;
 
-use Closure;
-use Illuminate\Contracts\View\View;
-use Illuminate\View\Component;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
-class SidebarLayoutFront extends Component
+class DashboardController extends Controller
 {
+    protected User $users;
 
-    public string $firstMenu;
-    public string $secondMenu;
-
-    public function __construct(string $firstMenu, string $secondMenu)
+    public function __construct()
     {
-        $this->firstMenu = $firstMenu;
-        $this->secondMenu = $secondMenu;
+        $this->middleware(function ($request, $next) {
+            $this->users = Auth::user();
+            return $next($request);
+        });
     }
 
-    public function render(): View|Closure|string
+    public function index()
     {
-        return view('components.admint.sidebar-layout-front');
+        return view('dokter.dashboard', array(
+            'title' => "Dashboard Administrator | MyKlinik v.1.0",
+            'firstMenu' => 'dashboard',
+            'secondMenu' => 'dashboard',
+        ));
     }
 }

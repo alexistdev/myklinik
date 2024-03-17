@@ -49,13 +49,18 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <!-- Start: Sidebar -->
     @if(Auth::user()->role_id == "2")
-        <!-- Start: Sidebar -->
+        <!-- Role: Admin -->
         <x-admint.sidebar-layout-admin :first-menu="$firstMenu" :second-menu="$secondMenu"/>
-        <!-- End: Sidebar -->
+    @elseif(Auth::user()->role_id == "4")
+        <!-- Role: Dokter -->
+        <x-admint.sidebar-layout-dokter :first-menu="$firstMenu" :second-menu="$secondMenu"/>
     @else
-        <x-admint.sidebar-layout-front :first-menu="$firstMenu" :second-menu="$secondMenu" />
+        <!-- Role: Pendaftaran -->
+        <x-admint.sidebar-layout-front :first-menu="$firstMenu" :second-menu="$secondMenu"/>
     @endif
+    <!-- End: Sidebar -->
 
     <!-- Vertical Overlay-->
     <div class="vertical-overlay"></div>

@@ -1,11 +1,13 @@
 <?php
-/*
- * Copyright (c) 2024.
- * Develop By: Alexsander Hendra Wijaya
- * Github: https://github.com/alexistdev
- * Phone : 0823-7140-8678
- * Email : Alexistdev@gmail.com
- */
+/******************************************************************************
+ *                                                                            *
+ *  * Copyright (c) 2024.                                                     *
+ *  * Develop By: Alexsander Hendra Wijaya                                    *
+ *  * Github: https://github.com/alexistdev                                   *
+ *  * Phone : 0823-7140-8678                                                  *
+ *  * Email : Alexistdev@gmail.com                                            *
+ *                                                                            *
+ ******************************************************************************/
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +20,8 @@ use App\Http\Controllers\Admin\{DashboardController as AdminDashboard,
     DokterController as AdminDokter};
 use App\Http\Controllers\Pendaftaran\{DashboardController as FrontDashboard,
     PendaftaranController as FrontDaftar};
+use App\Http\Controllers\Dokter\{DashboardController as DokterDashboard,
+    DataRekamController as DokterRekam};
 
 
 Route::redirect('/', '/login');
@@ -83,6 +87,11 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         Route::get('/front/ajax/get_data_pasien', [FrontDaftar::class, 'getDataPasien'])->name('front.ajax.getdatapasien');
         Route::get('/front/ajax/get_code', [FrontDaftar::class, 'generateCode'])->name('front.ajax.getCode');
+    });
+
+    Route::group(['roles' => 'dokter'], function () {
+        Route::get('/dokter/dashboard', [DokterDashboard::class, 'index'])->name('dokter.dashboard');
+        Route::get('/dokter/pemeriksaan', [DokterRekam::class, 'index'])->name('dokter.pemeriksaan');
     });
 });
 
