@@ -46,7 +46,7 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <p class="fw-medium text-muted mb-0">Pasien Mengantri</p>
+                                                    <p class="fw-medium text-muted mb-0">Nomor Antrian Ke:</p>
                                                     <h2 class="mt-4 ff-secondary fw-semibold"><span
                                                             class="counter-value" data-target="{{$onProsesAntrian}}">{{$onProsesAntrian}}</span></h2>
                                                     <p class="mb-0 text-muted">Sisa antrian <span

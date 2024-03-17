@@ -11,13 +11,11 @@ namespace App\Http\Controllers\Pendaftaran;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pendaftaran\PasienRequest;
-use App\Models\Antrian;
 use App\Models\Pasien;
 use App\Models\Poliklinik;
 use App\Models\Rekam;
 use App\Models\User;
 use App\Services\Pendaftaran\PendaftaranService;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,12 +53,9 @@ class PendaftaranController extends Controller
         $filteredPoliklinik = $poliklinik->filter(function ($poliklinik) {
             return $poliklinik->dokter != null;
         });
-//        $rekam = Rekam::with('antrian')->today();
         $rekam = Rekam::with('antrian')->get();
-        return $sisa = $rekam->filter(function ($value,$key){
-            return $value->where('status','0');
-        });
-        $onProses = $rekam->where('status', '=',"1")->orderBy('id','desc')->first();
+        $sisa =  $rekam->where('status',0)->count();
+        $onProses = $rekam->where('status', '=',"1")->sortBy('id')->first();
 
         return view('front.pendaftaran', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",

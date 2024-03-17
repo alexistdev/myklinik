@@ -87,7 +87,7 @@ class PendaftaranImplementation implements PendaftaranService
         do {
             $totalData = 8;
             $finalCode = "00000001";
-            $prefix = "AGTS-" . date("mY") . "-";
+            $prefix = "RKM-" . date("mY") . "-";
             $lastPasien = Rekam::orderBy('id', 'desc')->first();
             if ($lastPasien != null) {
                 $lastId = ((int)$lastPasien->id) + 1;
