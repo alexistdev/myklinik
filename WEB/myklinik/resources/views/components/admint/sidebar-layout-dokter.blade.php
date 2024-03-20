@@ -47,6 +47,20 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link menu-link @if($firstMenu == "pemeriksaan") active @endif" href="{{route('dokter.pemeriksaan')}}">
+                            <i class="ri-asterisk"></i> <span data-key="t-dashboards">Riwayat Pemeriksaan</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">REPORT</span></li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link @if($firstMenu == "pemeriksaan") active @endif" href="{{route('dokter.pemeriksaan')}}">
+                            <i class="ri-asterisk"></i> <span data-key="t-dashboards">Report Bulanan</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <!-- Sidebar -->

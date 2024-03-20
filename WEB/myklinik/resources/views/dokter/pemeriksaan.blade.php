@@ -41,9 +41,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">Total Tickets</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="547">0</span>k</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-success-subtle text-success mb-0"> <i class="ri-arrow-up-line align-middle"></i> 17.32 % </span> vs. previous month</p>
+                                        <p class="fw-medium text-muted mb-0">Total Pasien</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -62,9 +61,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">Pending Tickets</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="124">0</span>k</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-danger-subtle text-danger mb-0"> <i class="ri-arrow-down-line align-middle"></i> 0.96 % </span> vs. previous month</p>
+                                        <p class="fw-medium text-muted mb-0">Antrian Menunggu</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -83,9 +81,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">Closed Tickets</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="107">0</span>K</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-danger-subtle text-danger mb-0"> <i class="ri-arrow-down-line align-middle"></i> 3.87 % </span> vs. previous month</p>
+                                        <p class="fw-medium text-muted mb-0">Pasien Telah Ditangani</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -104,9 +101,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">Deleted Tickets</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="15.95">0</span>%</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-success-subtle text-success mb-0"> <i class="ri-arrow-up-line align-middle"></i> 1.09 % </span> vs. previous month</p>
+                                        <p class="fw-medium text-muted mb-0">Total Income</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -198,6 +194,7 @@
                                         </tr>
                                         </thead>
                                         <tbody class="list form-check-all" id="ticket-list-data">
+                                        @foreach($dataRekam as $rekam)
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
@@ -229,6 +226,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                     <div class="noresult" style="display: none">
