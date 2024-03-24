@@ -1,11 +1,13 @@
 <?php
-/*
- * Copyright (c) 2024.
- * Develop By: Alexsander Hendra Wijaya
- * Github: https://github.com/alexistdev
- * Phone : 0823-7140-8678
- * Email : Alexistdev@gmail.com
- */
+/******************************************************************************
+ *                                                                            *
+ *  * Copyright (c) 2024.                                                     *
+ *  * Develop By: Alexsander Hendra Wijaya                                    *
+ *  * Github: https://github.com/alexistdev                                   *
+ *  * Phone : 0823-7140-8678                                                  *
+ *  * Email : Alexistdev@gmail.com                                            *
+ *                                                                            *
+ ******************************************************************************/
 
 namespace App\Models;
 
@@ -25,14 +27,22 @@ class Rekam extends Model
         'berat_badan','tinggi_badan','keluhan_utama',
         'diagnosis','deskripsi_tindakan','created_by','status'];
 
+
     public function scopeToday($query)
     {
         return $query->where('created_at', '>=', Carbon::today());
+    }
+
+    public function scopeOngoing($query)
+    {
+        return $query->where('status','1')->where('status','0');
     }
 
     public function antrian()
     {
         return $this->hasOne(Antrian::class,'rekam_id','id');
     }
+
+
 
 }

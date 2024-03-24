@@ -16,27 +16,26 @@ use App\Http\Controllers\Controller;
 use App\Models\Karyawans;
 use App\Models\Rekam;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class DataRekamController extends Controller
 {
     protected User $users;
-    protected Karyawans $karyawans;
+
+    protected int $dokterID;
 
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             $this->users = Auth::user();
-            $this->karyawans = Karyawans::with('dokter')->where('user_id', $this->users->id)->first();
+            $this->dokterID = Karyawans::with('dokter')->where('user_id', $this->users->id)->first()->dokter->id;
             return $next($request);
         });
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $rekam = Rekam::where('dokter_id', $this->karyawans->dokter->id)->get();
+        $rekam = Rekam::today()->where('dokter_id', $this->dokterID)->ongoing()->orderBy('id','DESC')->first();
         return view('dokter.pemeriksaan', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'pemeriksaan',

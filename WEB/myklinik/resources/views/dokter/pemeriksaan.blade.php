@@ -194,7 +194,6 @@
                                         </tr>
                                         </thead>
                                         <tbody class="list form-check-all" id="ticket-list-data">
-                                        @foreach($dataRekam as $rekam)
                                         <tr>
                                             <th scope="row">
                                                 <div class="form-check">
@@ -226,7 +225,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
                                     <div class="noresult" style="display: none">
