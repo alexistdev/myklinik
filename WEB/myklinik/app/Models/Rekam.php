@@ -35,13 +35,19 @@ class Rekam extends Model
 
     public function scopeOngoing($query)
     {
-        return $query->where('status','1')->where('status','0');
+
+        return $query->whereIn('status',['0','1']);
     }
 
     public function antrian()
     {
         return $this->hasOne(Antrian::class,'rekam_id','id');
     }
+
+    public function pasien(){
+        return $this->belongsTo(Pasien::class,'pasien_id','id');
+    }
+
 
 
 

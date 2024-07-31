@@ -14,6 +14,7 @@ namespace App\Http\Controllers\Dokter;
 
 use App\Http\Controllers\Controller;
 use App\Models\Karyawans;
+use App\Models\Pasien;
 use App\Models\Rekam;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class DataRekamController extends Controller
 
     public function index()
     {
-        $rekam = Rekam::today()->where('dokter_id', $this->dokterID)->ongoing()->orderBy('id','DESC')->first();
+        $rekam = Rekam::with('pasien','antrian')->today()->where('dokter_id', $this->dokterID)->ongoing()->get()->sortBy('antrian');
         return view('dokter.pemeriksaan', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'pemeriksaan',

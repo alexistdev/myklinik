@@ -42,7 +42,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <p class="fw-medium text-muted mb-0">Total Pasien</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$dataRekam->count()}}">{{$dataRekam->count()}}</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -62,7 +62,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <p class="fw-medium text-muted mb-0">Antrian Menunggu</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$dataRekam->where('status',0)->count()}}">{{$dataRekam->where('status',0)->count()}}</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -82,7 +82,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <p class="fw-medium text-muted mb-0">Pasien Telah Ditangani</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="0">0</span></h2>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$dataRekam->where('status',2)->count()}}">0</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">
@@ -123,108 +123,42 @@
                         <div class="card" id="ticketsList">
                             <div class="card-header border-0">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="card-title mb-0 flex-grow-1">Tickets</h5>
+                                    <h5 class="card-title mb-0 flex-grow-1">DAFTAR PASIEN</h5>
                                     <div class="flex-shrink-0">
                                         <div class="d-flex flex-wrap gap-2">
-                                            <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Create Tickets</button>
+                                            <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> PROSES PASIEN</button>
                                             <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body border border-dashed border-end-0 border-start-0">
-                                <form>
-                                    <div class="row g-3">
-                                        <div class="col-xxl-5 col-sm-12">
-                                            <div class="search-box">
-                                                <input type="text" class="form-control search bg-light border-light" placeholder="Search for ticket details or something...">
-                                                <i class="ri-search-line search-icon"></i>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
 
-                                        <div class="col-xxl-3 col-sm-4">
-                                            <input type="text" class="form-control bg-light border-light" data-provider="flatpickr" data-date-format="d M, Y" data-range-date="true" id="demo-datepicker" placeholder="Select date range">
-                                        </div>
-                                        <!--end col-->
-
-                                        <div class="col-xxl-3 col-sm-4">
-                                            <div class="input-light">
-                                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                                    <option value="">Status</option>
-                                                    <option value="all" selected>All</option>
-                                                    <option value="Open">Open</option>
-                                                    <option value="Inprogress">Inprogress</option>
-                                                    <option value="Closed">Closed</option>
-                                                    <option value="New">New</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-xxl-1 col-sm-4">
-                                            <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-1 align-bottom"></i>
-                                                Filters
-                                            </button>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </form>
-                            </div>
                             <!--end card-body-->
                             <div class="card-body">
                                 <div class="table-responsive table-card mb-4">
                                     <table class="table align-middle table-nowrap mb-0" id="ticketTable">
                                         <thead>
                                         <tr>
-                                            <th scope="col" style="width: 40px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                </div>
-                                            </th>
-                                            <th class="sort" data-sort="id">ID</th>
-                                            <th class="sort" data-sort="tasks_name">Title</th>
-                                            <th class="sort" data-sort="client_name">Client</th>
-                                            <th class="sort" data-sort="assignedto">Assigned To</th>
-                                            <th class="sort" data-sort="create_date">Create Date</th>
-                                            <th class="sort" data-sort="due_date">Due Date</th>
-                                            <th class="sort" data-sort="status">Status</th>
-                                            <th class="sort" data-sort="priority">Priority</th>
-                                            <th class="sort" data-sort="action">Action</th>
+                                            <th class="sort text-center" data-sort="id" style="width: 15%">ID</th>
+                                            <th class="sort text-center" data-sort="keluhan" >KELUHAN SAKIT</th>
+                                            <th class="sort text-center" data-sort="nama_pasien" style="width: 10%">NAMA PASIEN</th>
+                                            <th class="sort text-center" data-sort="golongan_darah"  style="width: 5%">GOL-DARAH</th>
+                                            <th class="sort text-center" data-sort="usia" style="width: 5%">USIA</th>
+                                            <th class="sort text-center" data-sort="status" style="width: 15%">Status</th>
                                         </tr>
                                         </thead>
                                         <tbody class="list form-check-all" id="ticket-list-data">
+                                        @foreach($dataRekam as $row)
                                         <tr>
-                                            <th scope="row">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkAll" value="option1">
-                                                </div>
-                                            </th>
-                                            <td class="id"><a href="javascript:void(0);" onclick="ViewTickets(this)" data-id="001" class="fw-medium link-primary">#VLZ001</a></td>
-                                            <td class="tasks_name">Error message when placing an orders?</td>
-                                            <td class="client_name">Tonya Noble</td>
-                                            <td class="assignedto">James Morris</td>
-                                            <td class="create_date">08 Dec, 2021</td>
-                                            <td class="due_date">25 Jan, 2022</td>
-                                            <td class="status"><span class="badge bg-warning-subtle text-warning text-uppercase">Inprogress</span></td>
-                                            <td class="priority"><span class="badge bg-danger text-uppercase">High</span></td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-soft-primary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="ri-more-fill align-middle"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><button class="dropdown-item" onclick="location.href = 'apps-tickets-details.html';"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</button></li>
-                                                        <li><a class="dropdown-item edit-item-btn" href="#showModal" data-bs-toggle="modal"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                                        <li>
-                                                            <a class="dropdown-item remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
-                                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
+                                                <td class="id" ><a href="javascript:void(0);" onclick="ViewTickets(this)" data-id="001" class="fw-medium link-primary">#{{$row->pasien->kode_pasien ?? "0"}}</a></td>
+                                                <td class="text-start">{{$row->keluhan_utama ?? ""}}</td>
+                                                <td class="text-start">{{$row->pasien->nama_lengkap ?? ""}}</td>
+                                                <td class="text-center">{{$row->pasien->gol_darah ?? ""}}</td>
+                                                <td class="text-center">{{$row->pasien->age ?? ""}}</td>
+
+                                                <td class="text-center"><span class="badge bg-warning-subtle text-warning text-uppercase">Waiting</span></td>
                                         </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                     <div class="noresult" style="display: none">
