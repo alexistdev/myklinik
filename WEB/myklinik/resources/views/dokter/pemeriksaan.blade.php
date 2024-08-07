@@ -150,7 +150,7 @@
                                         <tbody class="list form-check-all" id="ticket-list-data">
                                         @foreach($dataRekam as $row)
                                         <tr>
-                                                <td class="id" ><a href="javascript:void(0);" onclick="ViewTickets(this)" data-id="001" class="fw-medium link-primary">#{{$row->pasien->kode_pasien ?? "0"}}</a></td>
+                                                <td class="id" ><a href="{{route('dokter.detailpasien',base64_encode($row->pasien->id))}}" class="fw-medium link-primary">#{{$row->pasien->kode_pasien ?? "0"}}</a></td>
                                                 <td class="text-start">{{$row->keluhan_utama ?? ""}}</td>
                                                 <td class="text-start">{{$row->pasien->nama_lengkap ?? ""}}</td>
                                                 <td class="text-center">{{$row->pasien->gol_darah ?? ""}}</td>

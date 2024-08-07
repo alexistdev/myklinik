@@ -18,6 +18,7 @@ use App\Models\Pasien;
 use App\Models\Rekam;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class DataRekamController extends Controller
 {
@@ -36,12 +37,29 @@ class DataRekamController extends Controller
 
     public function index()
     {
-        $rekam = Rekam::with('pasien','antrian')->today()->where('dokter_id', $this->dokterID)->ongoing()->get()->sortBy('antrian');
+       $rekam = Rekam::with('pasien','antrian')->today()->where('dokter_id', $this->dokterID)->ongoing()->get()->sortBy('antrian');
         return view('dokter.pemeriksaan', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'pemeriksaan',
             'secondMenu' => 'pemeriksaan',
             'dataRekam' => $rekam
         ));
+    }
+
+    public function detail_pasien($id)
+    {
+        try{
+            $idPasien = base64_decode($id);
+            $pasien = Pasien::findOrFail($idPasien);
+            return view('dokter.detailpasien', array(
+                'title' => "Dashboard Administrator | MyKlinik v.1.0",
+                'firstMenu' => 'pemeriksaan',
+                'secondMenu' => 'pemeriksaan',
+                'dataPasien' => $pasien
+            ));
+        }catch (Exception $e){
+            abort(404);
+        }
+
     }
 }
