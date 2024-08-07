@@ -37,7 +37,7 @@ class DataRekamController extends Controller
 
     public function index()
     {
-       $rekam = Rekam::with('pasien','antrian')->today()->where('dokter_id', $this->dokterID)->ongoing()->get()->sortBy('antrian');
+        $rekam = Rekam::with('pasien', 'antrian')->today()->where('dokter_id', $this->dokterID)->ongoing()->get()->sortBy('antrian');
         return view('dokter.pemeriksaan', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'pemeriksaan',
@@ -48,7 +48,7 @@ class DataRekamController extends Controller
 
     public function detail_pasien($id)
     {
-        try{
+        try {
             $idPasien = base64_decode($id);
             $pasien = Pasien::findOrFail($idPasien);
             return view('dokter.detailpasien', array(
@@ -57,9 +57,31 @@ class DataRekamController extends Controller
                 'secondMenu' => 'pemeriksaan',
                 'dataPasien' => $pasien
             ));
-        }catch (Exception $e){
+        } catch (Exception $e) {
             abort(404);
         }
 
+    }
+
+    public function proses()
+    {
+        try {
+            $rekam = Rekam::with('pasien')->where('dokter_id', $this->dokterID)->today()->ongoing()->orderBy('id', 'ASC')->get();
+            $dataPasien = $rekam->first();
+            $cekOngoing = $rekam->where('status', '1');
+            if ($cekOngoing->count() > 0) {
+                $dataPasien =  $cekOngoing->first();
+            }
+            $rekam->first()->pushStatus("1");
+//            return $dataPasien;
+            return view('dokter.detailpemeriksaan', array(
+                'title' => "Dashboard Administrator | MyKlinik v.1.0",
+                'firstMenu' => 'pemeriksaan',
+                'secondMenu' => 'pemeriksaan',
+                'dataPasien' => $dataPasien
+            ));
+        } catch (Exception $e) {
+            abort(404);
+        }
     }
 }

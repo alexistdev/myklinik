@@ -48,6 +48,10 @@ class Rekam extends Model
         return $this->belongsTo(Pasien::class,'pasien_id','id');
     }
 
+    public function pushStatus(int $status):void{
+        $this->update(['status' => $status]);
+    }
+
 
 
 
