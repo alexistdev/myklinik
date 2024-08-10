@@ -14,6 +14,8 @@ namespace App\Http\Controllers\Dokter;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Pendaftaran\PendaftaranService;
+use app\Services\Pendaftaran\RekamRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -26,6 +28,7 @@ class DashboardController extends Controller
             $this->users = Auth::user();
             return $next($request);
         });
+
     }
 
     public function index()

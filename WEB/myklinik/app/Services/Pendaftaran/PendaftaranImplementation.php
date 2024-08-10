@@ -9,6 +9,7 @@
 
 namespace App\Services\Pendaftaran;
 
+use App\Http\Requests\Dokter\PeriksaRequest;
 use App\Http\Requests\Pendaftaran\PasienRequest;
 use App\Models\Antrian;
 use App\Models\Pasien;
@@ -126,6 +127,16 @@ class PendaftaranImplementation implements PendaftaranService
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function save_pemeriksaan(PeriksaRequest $request): void
+    {
+        $rekam = Rekam::findOrFail(base64_decode($request->rekam_id));
+        $rekam->update([
+            'status' => '2',
+            'diagnosa' => $request->diagnosa,
+            'deskripsi_tindakan' => $request->deskripsi_tindakan,
+        ]);
     }
 
 

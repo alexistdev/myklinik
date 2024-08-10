@@ -93,6 +93,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/dokter/dashboard', [DokterDashboard::class, 'index'])->name('dokter.dashboard');
         Route::get('/dokter/pemeriksaan', [DokterRekam::class, 'index'])->name('dokter.pemeriksaan');
         Route::get('/dokter/pemeriksaan/proses', [DokterRekam::class, 'proses'])->name('dokter.pemeriksaan.proses');
+        Route::post('/dokter/pemeriksaan/proses', [DokterRekam::class, 'selesai_periksa'])->name('dokter.pemeriksaan.selesai');
         Route::get('/dokter/pemeriksaan/pasien/{id}', [DokterRekam::class, 'detail_pasien'])->name('dokter.detailpasien');
     });
 });

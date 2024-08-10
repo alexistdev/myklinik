@@ -19,7 +19,7 @@
                 <x-admint.error-message-component/>
             </div>
             <!-- start page title -->
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
                         <h4 class="mb-sm-0">Pemeriksaan Pasien</h4>
@@ -36,69 +36,92 @@
             </div>
             <!-- end page title -->
 
+            <div class="row">
+                <!--start: Detail Pasien -->
+                <div class="col-lg-4">
+                    <div class="card">
 
-                <div class="row">
-                    <!--start: Detail Pasien -->
-                    <div class="col-lg-4">
-                        <div class="card">
-
-                            <div class="card-body">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Nama : {{$dataPasien->pasien->nama_lengkap ?? "NA"}}</li>
-                                    <li class="list-group-item">Umur : {{$dataPasien->pasien->age ?? "0"}} Tahun</li>
-                                    <li class="list-group-item">Tekanan Darah : {{$dataPasien->tekanan_darah ?? "0"}} mm/g</li>
-                                    <li class="list-group-item">Rate : {{$dataPasien->rate ?? "0"}} </li>
-                                    <li class="list-group-item">Suhu : {{$dataPasien->suhu_badan ?? "0"}} Celcius</li>
-                                    <li class="list-group-item">Tinggi Badan : {{$dataPasien->tinggi_badan ?? "0"}} cm</li>
-                                </ul>
-                            </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Nama : {{$dataPasien->pasien->nama_lengkap ?? "NA"}}</li>
+                                <li class="list-group-item">Umur : {{$dataPasien->pasien->age ?? "0"}} Tahun</li>
+                                <li class="list-group-item">Tekanan Darah : {{$dataPasien->tekanan_darah ?? "0"}}mm/g
+                                </li>
+                                <li class="list-group-item">Rate : {{$dataPasien->rate ?? "0"}} </li>
+                                <li class="list-group-item">Suhu : {{$dataPasien->suhu_badan ?? "0"}} Celcius</li>
+                                <li class="list-group-item">Tinggi Badan : {{$dataPasien->tinggi_badan ?? "0"}} cm</li>
+                            </ul>
                         </div>
                     </div>
-                    <!--end: Detail Pasien -->
-
-                    <!--start: Detail Keluhan -->
-                    <div class="col-lg-8">
-                        <div class="card ">
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h3 class="float-start">Detail Keluhan:</h3>
-                                        <a href="{{route('dokter.pemeriksaan')}}"><button class="btn btn-sm btn-danger float-end"><i class=" ri-arrow-left-s-line align-middle"></i> BACK</button></a>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p class="mt-3">{{$dataPasien->keluhan_utama ?? "-"}}</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--end: Detail Keluhan -->
                 </div>
+                <!--end: Detail Pasien -->
+
+                <!--start: Detail Keluhan -->
+                <div class="col-lg-8">
+                    <div class="card ">
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3 class="float-start">Detail Keluhan:</h3>
+                                    <a href="{{route('dokter.pemeriksaan')}}">
+                                        <button class="btn btn-sm btn-danger float-end"><i
+                                                class=" ri-arrow-left-s-line align-middle"></i> BACK
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="mt-3">{{$dataPasien->keluhan_utama ?? "-"}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--end: Detail Keluhan -->
+            </div>
 
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card ">
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card ">
+                        <form action="{{route('dokter.pemeriksaan.selesai')}}" method="post">
+                            @csrf
                             <div class="card-body">
                                 <div class="row">
+
                                     <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <h3>Diagnosa:</h3>
-                                                <textarea name="" id=""  class="form-control" cols="30" rows="3"></textarea>
+                                                <input type="text" name="rekam_id" value="{{base64_encode($dataPasien->id)}}">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h3>Diagnosa: <span class="text-danger"> * </span></h3>
+                                                <textarea name="diagnosa"  class="form-control @error('diagnosa') is-invalid @enderror" cols="30"
+                                                          rows="3">{{old('diagnosa')}}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="row mt-3">
                                             <div class="col-lg-12">
-                                                <h3>Deskripsi Tindakan:</h3>
-                                                <textarea name="" id=""  class="form-control" cols="30" rows="3"></textarea>
+                                                <h3>Deskripsi Tindakan: <span class="text-danger "> * </span></h3>
+                                                <textarea name="deskripsi_tindakan"  class="form-control @error('deskripsi_tindakan') is-invalid @enderror" cols="30"
+                                                          rows="3">{{old('deskripsi_tindakan')}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-lg-12">
+                                                <button type="submit" class="btn btn-success">SIMPAN PEMERIKSAAN</button>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-lg-12">
+                                                (<span class="text-danger">*</span>)  wajib diisi
                                             </div>
                                         </div>
                                     </div>
@@ -108,25 +131,26 @@
                                             <div class="col-lg-12">
                                                 <div class="card card-body">
                                                     <h6 class="mb-1">Riwayat Medis</h6>
-                                                    <a href="javascript:void(0)" class="btn btn-primary btn-sm">See Details</a>
+                                                    <a href="javascript:void(0)" class="btn btn-primary btn-sm">See
+                                                        Details</a>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="card card-body">
                                                     <h6 class="mb-1">Resep</h6>
-                                                    <a href="javascript:void(0)" class="btn btn-primary btn-sm">See Details</a>
+                                                    <a href="javascript:void(0)" class="btn btn-primary btn-sm">See
+                                                        Details</a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
+            </div>
 
         </div>
         <!-- container-fluid -->
