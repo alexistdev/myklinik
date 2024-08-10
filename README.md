@@ -28,6 +28,8 @@ Aplikasi berbasis web untuk manajemen klinik seperti: apotik, pendaftaran dan ri
 ## Panduan Installasi Android:
 - developed not started yet
 
+## Gallery
+
 #### Gambar:Halaman Administrator:
 <br />
 <img src="https://github.com/alexistdev/myklinik/blob/main/IMAGES/gambar1.png?raw=true" width="1200px">
