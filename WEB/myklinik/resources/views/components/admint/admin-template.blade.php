@@ -56,6 +56,9 @@
     @elseif(Auth::user()->role_id == "4")
         <!-- Role: Dokter -->
         <x-admint.sidebar-layout-dokter :first-menu="$firstMenu" :second-menu="$secondMenu"/>
+    @elseif(Auth::user()->role_id == "5")
+        <!-- Role: Dokter -->
+        <x-admint.sidebar-layout-apotik :first-menu="$firstMenu" :second-menu="$secondMenu" />
     @else
         <!-- Role: Pendaftaran -->
         <x-admint.sidebar-layout-front :first-menu="$firstMenu" :second-menu="$secondMenu"/>

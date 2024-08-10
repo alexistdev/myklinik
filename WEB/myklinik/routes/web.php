@@ -22,6 +22,7 @@ use App\Http\Controllers\Pendaftaran\{DashboardController as FrontDashboard,
     PendaftaranController as FrontDaftar};
 use App\Http\Controllers\Dokter\{DashboardController as DokterDashboard,
     DataRekamController as DokterRekam};
+use App\Http\Controllers\Apotik\{DashboardController as ApotikDashboard};
 
 
 Route::redirect('/', '/login');
@@ -95,6 +96,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/dokter/pemeriksaan/proses', [DokterRekam::class, 'proses'])->name('dokter.pemeriksaan.proses');
         Route::post('/dokter/pemeriksaan/proses', [DokterRekam::class, 'selesai_periksa'])->name('dokter.pemeriksaan.selesai');
         Route::get('/dokter/pemeriksaan/pasien/{id}', [DokterRekam::class, 'detail_pasien'])->name('dokter.detailpasien');
+    });
+
+    Route::group(['roles' => 'apotik'], function () {
+        Route::get('/apoteker/dashboard', [ApotikDashboard::class, 'index'])->name('apoteker.dashboard');
     });
 });
 
