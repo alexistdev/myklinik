@@ -29,6 +29,7 @@ use Mockery\Exception;
 class DataRekamController extends Controller
 {
     protected User $users;
+    protected int $totalSelesai = 0;
 
     protected PendaftaranService $pendaftaranService;
     protected int $dokterID;
@@ -41,17 +42,19 @@ class DataRekamController extends Controller
             return $next($request);
         });
         $this->pendaftaranService = $pendaftaranService;
-
     }
 
     public function index()
     {
-        $rekam = Rekam::with('pasien', 'antrian')->today()->where('dokter_id', $this->dokterID)->ongoing()->get()->sortBy('antrian');
+        $rekam = Rekam::with('pasien', 'antrian')->today()->where('dokter_id', $this->dokterID)->get()->sortBy('antrian');
+        $this->totalSelesai =  $rekam->where('status','2')->count();
+        $dataPasien= $rekam->whereIn('status',['0','1']);
         return view('dokter.pemeriksaan', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
             'firstMenu' => 'pemeriksaan',
             'secondMenu' => 'pemeriksaan',
-            'dataRekam' => $rekam
+            'dataRekam' => $dataPasien,
+            'totalSelesai' => $this->totalSelesai
         ));
     }
 
@@ -79,10 +82,15 @@ class DataRekamController extends Controller
             if($rekam->count() > 0){
                 $dataPasien = $rekam->first();
                 $cekOngoing = $rekam->where('status', '1');
+
                 if ($cekOngoing->count() > 0) {
                     $dataPasien =  $cekOngoing->first();
+                }
+
+                if ($cekOngoing->count() == 0) {
                     $rekam->first()->pushStatus("1");
                 }
+
                 return view('dokter.detailpemeriksaan', array(
                     'title' => "Dashboard Administrator | MyKlinik v.1.0",
                     'firstMenu' => 'pemeriksaan',

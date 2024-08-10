@@ -81,8 +81,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">Pasien Telah Ditangani</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$dataRekam->where('status',2)->count()}}">0</span></h2>
+                                        <p class="fw-medium text-muted mb-0">Pasien Telah Ditangani </p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$totalSelesai}}">{{$totalSelesai}}</span></h2>
                                     </div>
                                     <div>
                                         <div class="avatar-sm flex-shrink-0">

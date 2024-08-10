@@ -96,7 +96,7 @@
                                     <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <input type="text" name="rekam_id" value="{{base64_encode($dataPasien->id)}}">
+                                                <input type="hidden" name="rekam_id" value="{{base64_encode($dataPasien->id)}}">
                                             </div>
                                         </div>
                                         <div class="row">

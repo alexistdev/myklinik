@@ -53,7 +53,7 @@ class PendaftaranController extends Controller
         $filteredPoliklinik = $poliklinik->filter(function ($poliklinik) {
             return $poliklinik->dokter != null;
         });
-        $rekam = Rekam::with('antrian')->get();
+        $rekam = Rekam::with('antrian')->today()->get();
         $sisa =  $rekam->where('status',0)->count();
         $onProses = $rekam->where('status', '=',"1")->sortBy('id')->first();
 
