@@ -45,46 +45,44 @@ class PoliklinikController extends Controller
         ));
     }
 
-    public function store(PoliklinikRequest $request)
+    private function handleTransaction(callable $callback, $successMessage,$status)
     {
-        $request->validated();
         DB::beginTransaction();
-        try {
-            $this->poliklinikService->save($request);
+        try{
+            $callback();
             DB::commit();
-            return redirect(route('adm.poli'))->with(['success' => "Data Poliklinik berhasil ditambahkan!"]);
-        } catch (Exception $e) {
+            return redirect(route('adm.poli'))->with([$status => $successMessage]);
+        }catch (Exception $e){
             DB::rollback();
             return redirect(route('adm.poli'))->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function store(PoliklinikRequest $request)
+    {
+        $request->validated();
+        return $this->handleTransaction(
+            fn() => $this->poliklinikService->save($request),
+            "Data Poliklinik berhasil ditambahkan!","success"
+        );
     }
 
     public function update(PoliklinikRequest $request)
     {
         $request->validated();
-        DB::beginTransaction();
-        try {
-            $this->poliklinikService->update($request);
-            DB::commit();
-            return redirect(route('adm.poli'))->with(['success' => "Data Poliklinik berhasil diperbaharui!"]);
-        } catch (Exception $e) {
-            DB::rollback();
-            return redirect(route('adm.poli'))->withErrors(['error' => $e->getMessage()]);
-        }
+        return $this->handleTransaction(
+            fn() => $this->poliklinikService->update($request),
+            "Data Poliklinik berhasil diperbaharui!","success"
+        );
     }
 
     public function destroy(PoliklinikRequest $request)
     {
         $request->validated();
-        DB::beginTransaction();
-        try {
-            $id = base64_decode($request->poliklinik_id);
-            $this->poliklinikService->delete($id);
-            DB::commit();
-            return redirect(route('adm.poli'))->with(['delete' => "Data Poliklinik berhasil dihapus!"]);
-        } catch (Exception $e) {
-            DB::rollback();
-            abort('404',"NOT FOUND");
-        }
+        $id = base64_decode($request->poliklinik_id);
+        return $this->handleTransaction(
+            fn() => $this->poliklinikService->delete($id),
+            "Data Poliklinik berhasil dihapus!","delete"
+        );
     }
 }
