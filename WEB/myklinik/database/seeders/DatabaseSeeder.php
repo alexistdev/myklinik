@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ProdusenSeeder::class,
+            PoliklinikSeeder::class,
             RoleSeeder::class,
             KategoriObatSeeder::class,
             GolonganObatSeeder::class,
-//            UserSeeder::class,
-//            KaryawansSeeder::class,
-//            PoliklinikSeeder::class,
-//            DokterSeeder::class,
+            UserSeeder::class,
+            KaryawansSeeder::class,
+            DokterSeeder::class,
         ]);
     }
 }
