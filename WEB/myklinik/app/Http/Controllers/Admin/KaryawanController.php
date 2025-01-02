@@ -50,15 +50,10 @@ class KaryawanController extends Controller
     public function store(KaryawanRequest $request)
     {
         $request->validated();
-        DB::beginTransaction();
-        try {
-            $this->karyawanService->save($request);
-            DB::commit();
-            return redirect(route('adm.karyawan'))->with(['success' => "Data Karyawan berhasil ditambahkan!"]);
-        } catch (Exception $e) {
-            DB::rollback();
-            return redirect(route('adm.karyawan'))->withErrors(['error' => $e->getMessage()]);
-        }
+        return $this->handleTransaction(
+            fn() => $this->karyawanService->save($request),
+            "Data Karyawan berhasil ditambahkan!","success",true
+        );
     }
 
     public function create()
@@ -86,7 +81,7 @@ class KaryawanController extends Controller
                     'dataKaryawan' => $user
                 ));
             }catch (Exception $e){
-                abort('404',"NOT FOUND");
+                abort('404',$e->getMessage());
             }
         }
         abort('404',"NOT FOUND");
@@ -95,26 +90,32 @@ class KaryawanController extends Controller
     public function update(KaryawanRequest $request)
     {
         $request->validated();
-        DB::beginTransaction();
-        try {
-            $this->karyawanService->update($request);
-            DB::commit();
-            return redirect(route('adm.karyawan.edit',$request->user_id))->with(['success' => "Data Karyawan berhasil diperbaharui!"]);
-        } catch (Exception $e) {
-            DB::rollback();
-            return redirect(route('adm.karyawan'))->withErrors(['error' => $e->getMessage()]);
-        }
+        return  $this->handleTransaction(
+            fn() => $this->karyawanService->update($request),
+            "Data Karyawan berhasil diperbaharui!","success",false,$request->user_id
+        );
     }
 
     public function destroy(KaryawanRequest $request)
     {
         $request->validated();
+        return  $this->handleTransaction(
+            fn() => $this->karyawanService->delete($request->user_id),
+            "Data Karyawan berhasil dihapus!","delete",true
+        );
+    }
+
+    private function handleTransaction(callable $callback, string $successMessage, string $status , bool $isSaved , string $id = null)
+    {
         DB::beginTransaction();
-        try {
-            $this->karyawanService->delete($request->user_id);
+        try{
+            $callback();
             DB::commit();
-            return redirect(route('adm.karyawan'))->with(['delete' => "Data Karyawan berhasil dihapus!"]);
-        } catch (Exception $e) {
+            if(!$isSaved && $id != null){
+                return redirect(route('adm.karyawan.edit',$id))->with([$status => $successMessage]);
+            }
+            return redirect(route('adm.karyawan'))->with([$status => $successMessage]);
+        }catch (Exception $e){
             DB::rollback();
             return redirect(route('adm.karyawan'))->withErrors(['error' => $e->getMessage()]);
         }
