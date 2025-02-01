@@ -13,6 +13,7 @@ use App\Http\Requests\Admin\ObatRequest;
 use App\Models\Golongan_obat;
 use App\Models\Kategori_obat;
 use App\Models\Obat;
+use App\Models\Produsen;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -56,8 +57,10 @@ class ObatServiceImpl implements ObatService
         $obat = new Obat();
         $kategori = Kategori_obat::findOrFail(base64_decode($request->kategori_id));
         $golongan = Golongan_obat::findOrFail(base64_decode($request->golongan_id));
+        $produsen = Produsen::findOrFail(base64_decode($request->produsen_id));
         $obat->kategoriobat_id = $kategori->id;
         $obat->golonganobat_id = $golongan->id;
+        $obat->produsen_id = $produsen->id;
         $obat->name = $request->name;
         $obat->type = $request->type;
         $obat->price = $request->price;
@@ -70,9 +73,11 @@ class ObatServiceImpl implements ObatService
         $obat = Obat::findOrFail(decrypt($request->obat_id));
         $kategori = Kategori_obat::findOrFail(base64_decode($request->kategori_id));
         $golongan = Golongan_obat::findOrFail(base64_decode($request->golongan_id));
+        $produsen = Produsen::findOrFail(base64_decode($request->produsen_id));
         Obat::where('id',$obat->id)->update([
             'kategoriobat_id' => $kategori->id,
             'golonganobat_id' => $golongan->id,
+            'produsen_id' => $produsen->id,
             'name' => $request->name,
             'type' => $request->type,
             'price' => $request->price,

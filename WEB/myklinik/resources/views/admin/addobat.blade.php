@@ -81,6 +81,21 @@
                                             </div>
                                         </div>
                                         <div class="row mt-3">
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <label for="produsen_id" class="form-label">Produsen <span
+                                                            class="text-danger">*</span></label>
+                                                    <select name="produsen_id" class="form-control select @if($errors->has('produsen_id')) is-invalid @endif" id="produsen_id" required>
+                                                        <option value="">Pilih Produsen Obat</option>
+                                                        @foreach($optionProdusen as $produsen)
+                                                            <option value="{{base64_encode($produsen->id)}}"
+                                                                    @if(base64_encode($produsen->id) == old('produsen_id')) selected @endif>{{$produsen->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
                                             <div class="col-lg-3">
                                                 <div>
                                                     <label for="tipeObat" class="form-label">Tipe Obat <span

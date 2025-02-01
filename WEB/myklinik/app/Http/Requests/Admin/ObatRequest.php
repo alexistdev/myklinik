@@ -32,6 +32,7 @@ class ObatRequest extends FormRequest
             $rules['name'] =  'required|max:255';
             $rules['golongan_id'] =  'required|max:255';
             $rules['kategori_id'] =  'required|max:255';
+            $rules['produsen_id'] =  'required|max:255';
             $rules['type'] =  'required|max:255';
             $rules['price'] =  'required|numeric';
             $rules['stock'] =  'required|numeric';
@@ -39,6 +40,7 @@ class ObatRequest extends FormRequest
             $rules['obat_id'] =  'required|max:255';
             $rules['kategori_id'] =  'required|max:255';
             $rules['golongan_id'] =  'required|max:255';
+            $rules['produsen_id'] =  'required|max:255';
             $rules['name'] =  'required|max:255';
             $rules['type'] =  'required|max:255';
             $rules['price'] =  'required|numeric';
@@ -62,6 +64,8 @@ class ObatRequest extends FormRequest
                 'golongan_id.max' => "Silahkan pilih Golongan terlebih dahulu!",
                 'kategori_id.required' => "Silahkan pilih Kategori terlebih dahulu!",
                 'kategori_id.max' => "Silahkan pilih Kategori terlebih dahulu!",
+                'produsen_id.required' => "Silahkan pilih Produsen terlebih dahulu!",
+                'produsen_id.max' => "Silahkan pilih Produsen terlebih dahulu!",
                 'type.required' => "Silahkan pilih Tipe obat terlebih dahulu!",
                 'type.max' => "Silahkan pilih Tipe obat terlebih dahulu!",
                 'price.required' => "Harga Obat harus diisi!",
@@ -77,6 +81,8 @@ class ObatRequest extends FormRequest
                 'kategori_id.max' => "Silahkan pilih Kategori terlebih dahulu!",
                 'golongan_id.required' => "Silahkan pilih Golongan terlebih dahulu!",
                 'golongan_id.max' => "Silahkan pilih Golongan terlebih dahulu!",
+                'produsen_id.required' => "Silahkan pilih Produsen terlebih dahulu!",
+                'produsen_id.max' => "Silahkan pilih Produsen terlebih dahulu!",
                 'name.required' => "Nama Obat harus diisi!",
                 'name.max' => "Panjang karakter maksimal adalah 255 karakter!",
                 'type.required' => "Silahkan pilih Tipe obat terlebih dahulu!",

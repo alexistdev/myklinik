@@ -14,6 +14,7 @@ use App\Http\Requests\Admin\ObatRequest;
 use App\Models\Golongan_obat;
 use App\Models\Kategori_obat;
 use App\Models\Obat;
+use App\Models\Produsen;
 use App\Services\Admin\ObatService;
 use Exception;
 use Illuminate\Http\Request;
@@ -52,6 +53,7 @@ class ObatController extends Controller
     {
         $kategori = Kategori_obat::orderBy('name','ASC')->get();
         $golongan = Golongan_obat::orderBy('name','ASC')->get();
+        $produsen = Produsen::OrderBy('name','ASC')->get();
         $obat = Obat::count();
         return view('admin.addobat', array(
             'title' => "Dashboard Administrator | MyKlinik v.1.0",
@@ -59,6 +61,7 @@ class ObatController extends Controller
             'secondMenu' => 'obat',
             'optionKategori' => $kategori,
             'optionGolongan' => $golongan,
+            'optionProdusen' => $produsen,
             'jumlahObat' => $obat
         ));
     }
@@ -73,7 +76,7 @@ class ObatController extends Controller
             return redirect(route('adm.obat'))->with(['success' => "Data Obat berhasil ditambahkan!"]);
         }catch (Exception $e){
             DB::rollback();
-            abort('404', 'NOT FOUND');
+            abort('404',"NOT FOUND");
         }
     }
 
@@ -84,6 +87,7 @@ class ObatController extends Controller
                 $kategori = Kategori_obat::orderBy('name','ASC')->get();
                 $golongan = Golongan_obat::orderBy('name','ASC')->get();
                 $dataObat = $obat->where('id',decrypt($id))->first();
+                $produsen = Produsen::OrderBy('name','ASC')->get();
                 if($dataObat != null || $dataObat = ""){
                     return view('admin.editobat', array(
                         'title' => "Dashboard Administrator | MyKlinik v.1.0",
@@ -91,6 +95,7 @@ class ObatController extends Controller
                         'secondMenu' => 'obat',
                         'optionKategori' => $kategori,
                         'optionGolongan' => $golongan,
+                        'optionProdusen' => $produsen,
                         'jumlahObat' => $obat->count(),
                         'dataObat' => $dataObat,
                         'idObat' => $id,
