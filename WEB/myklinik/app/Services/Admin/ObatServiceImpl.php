@@ -22,14 +22,16 @@ class ObatServiceImpl implements ObatService
 
     public function index(Request $request)
     {
-        $obat = Obat::with('golongan')->orderBy('id', 'DESC')->get();
+        $obat = Obat::with('golongan','produsen')->orderBy('id', 'DESC')->get();
         return DataTables::of($obat)
             ->addIndexColumn()
             ->editColumn('name', fn($request) => ucfirst($request->name))
             ->editColumn('created_at', fn($request) => $request->created_at->format('d-m-Y H:i:s'))
             ->editColumn('golongan', fn($request) => strtoupper($request->golongan->name))
+            ->editColumn('produsen', fn($request) => strtoupper($request->produsen->name))
             ->editColumn('kategori', fn($request) => strtoupper($request->kategori->name))
             ->editColumn('code', fn($request) => strtoupper($request->code))
+            ->editColumn('price', fn($request) => "Rp. ".$request->price)
             ->addColumn('action', fn($row) => $this->createActionButtons($row))
             ->rawColumns(['action'])
             ->make(true);

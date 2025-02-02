@@ -30,4 +30,6 @@ class Produsen extends Model
 
         return $code;
     }
+
+
 }

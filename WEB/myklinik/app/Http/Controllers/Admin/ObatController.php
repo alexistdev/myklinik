@@ -20,6 +20,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ObatController extends Controller
 {
@@ -76,8 +77,8 @@ class ObatController extends Controller
             return redirect(route('adm.obat'))->with(['success' => "Data Obat berhasil ditambahkan!"]);
         }catch (Exception $e){
             DB::rollback();
-            echo $e->getMessage();
-//            abort('404',"NOT FOUND");
+            Log::error("error",[$e->getMessage()]);
+            abort('404',"NOT FOUND");
         }
     }
 
@@ -104,6 +105,7 @@ class ObatController extends Controller
                 }
                 abort('404',"NOT FOUND");
             }catch (Exception $e){
+                Log::error("error",[$e->getMessage()]);
                 abort('404',"NOT FOUND");
             }
         }
@@ -120,6 +122,7 @@ class ObatController extends Controller
             return redirect(route('adm.obat.edit',$request->obat_id))->with(['success' => "Data Obat berhasil diperbaharui!"]);
         }catch (Exception $e){
             DB::rollback();
+            Log::error("error",[$e->getMessage()]);
             abort('404', 'NOT FOUND');
         }
     }
@@ -135,6 +138,7 @@ class ObatController extends Controller
             return redirect(route('adm.obat'))->with(['delete' => "Data Obat berhasil dihapus!"]);
         }catch (Exception $e){
             DB::rollback();
+            Log::error("error",[$e->getMessage()]);
             abort('404', 'NOT FOUND');
         }
     }
