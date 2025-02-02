@@ -76,7 +76,8 @@ class ObatController extends Controller
             return redirect(route('adm.obat'))->with(['success' => "Data Obat berhasil ditambahkan!"]);
         }catch (Exception $e){
             DB::rollback();
-            abort('404',"NOT FOUND");
+            echo $e->getMessage();
+//            abort('404',"NOT FOUND");
         }
     }
 
