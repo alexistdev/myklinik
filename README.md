@@ -2,7 +2,8 @@
 Aplikasi berbasis web untuk manajemen klinik seperti: apotik, pendaftaran dan riwayat pengobatan.
 
 ## System
-- Framework Laravel 10.43.0
+- Framework Laravel 12.63.0
+- PHP 8.2+
 - Database MySQL
 
 ## Panduan Installasi Web Laravel
