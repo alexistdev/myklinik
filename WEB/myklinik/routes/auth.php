@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\ForcePasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
                 ->name('password.confirm');
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+
+    Route::get('password/force', [ForcePasswordController::class, 'show'])->name('password.force');
+    Route::put('password/force', [ForcePasswordController::class, 'update'])->name('password.force.update');
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 

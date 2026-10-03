@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\View\View;
+
+class ForcePasswordController extends Controller
+{
+    public function show(Request $request): View|RedirectResponse
+    {
+        if (!$request->user()->must_change_password) {
+            return redirect('/');
+        }
+
+        return view('auth.force-password');
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed', 'different:current_password', Password::defaults()],
+        ], [
+            'current_password.current_password' => 'Password saat ini tidak sesuai.',
+            'password.different' => 'Password baru tidak boleh sama dengan password saat ini.',
+        ]);
+
+        $user = $request->user();
+        $user->password = Hash::make($validated['password']);
+        $user->must_change_password = false;
+        $user->save();
+
+        return redirect('/');
+    }
+}
