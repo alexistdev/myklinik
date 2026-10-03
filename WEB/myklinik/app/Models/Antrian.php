@@ -28,7 +28,7 @@ class Antrian extends Model
     }
 
     public static function autoGenerateNumber(){
-        $antrian = Antrian::where('created_at', '>=', Carbon::today())->orderBy('id','desc')->first();
+        $antrian = Antrian::withTrashed()->where('created_at', '>=', Carbon::today())->orderBy('nomor','desc')->first();
         $nomor = 1;
         if($antrian != null){
             $nomor += $antrian->nomor;

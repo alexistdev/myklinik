@@ -113,7 +113,7 @@
                                                 <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
                                                     <input type="password" name="password"
-                                                           class="form-control pe-5 password-input" value="@if(Cookie::has('loginPassword')){{Cookie::get('loginPassword')}}@endif"
+                                                           class="form-control pe-5 password-input"
                                                            id="password-input" required>
                                                     <button
                                                         class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
@@ -123,7 +123,7 @@
                                             </div>
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember" value=""
+                                                <input class="form-check-input" type="checkbox" name="remember" value="1"
                                                        id="auth-remember-check" @if(Cookie::has('loginUser')) checked  @endif>
                                                 <label class="form-check-label" for="auth-remember-check">Remember
                                                     me</label>
@@ -155,12 +155,6 @@
                                             </div>
 
                                         </form>
-                                    </div>
-
-                                    <div class="mt-5 text-center">
-                                        <p class="mb-0">Don't have an account ? <a href="{{route('register')}}"
-                                                                                   class="fw-semibold text-primary text-decoration-underline">
-                                                Signup</a></p>
                                     </div>
                                 </div>
                             </div>

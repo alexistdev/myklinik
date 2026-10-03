@@ -25,13 +25,13 @@ class RoleTest extends TestCase
     public function testKaryawanScope()
     {
         // Create test roles
-        Role::create(['id' => 1, 'name' => 'Admin']);
-        Role::create(['id' => 2, 'name' => 'Manager']);
-        Role::create(['id' => 3, 'name' => 'Karyawan1']);
-        Role::create(['id' => 4, 'name' => 'Supervisor']);
-        Role::create(['id' => 5, 'name' => 'Karyawan2']);
-        Role::create(['id' => 6, 'name' => 'Owner']);
-        Role::create(['id' => 7, 'name' => 'Karyawan3']);
+        Role::forceCreate(['id' => 1, 'name' => 'Admin']);
+        Role::forceCreate(['id' => 2, 'name' => 'Manager']);
+        Role::forceCreate(['id' => 3, 'name' => 'Karyawan1']);
+        Role::forceCreate(['id' => 4, 'name' => 'Supervisor']);
+        Role::forceCreate(['id' => 5, 'name' => 'Karyawan2']);
+        Role::forceCreate(['id' => 6, 'name' => 'Owner']);
+        Role::forceCreate(['id' => 7, 'name' => 'Karyawan3']);
 
         $karyawanRoles = Role::karyawan()->get();
 

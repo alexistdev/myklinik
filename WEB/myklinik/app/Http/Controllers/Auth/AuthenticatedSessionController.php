@@ -39,10 +39,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
         /** Setup cookies */
-        if($request->has('remember')){
+        if($request->boolean('remember')){
+            // hanya email yang diingat; sesi dijaga oleh remember token Laravel
             Cookie::queue('loginUser',$request->email,1440);
-            Cookie::queue('loginPassword',$request->password,1440);
+        } else {
+            Cookie::queue(Cookie::forget('loginUser'));
         }
+        // hapus cookie password lama (sebelumnya tersimpan sebagai teks biasa)
+        Cookie::queue(Cookie::forget('loginPassword'));
         $user = Auth::user();
         $roleId = (Int) $user->role_id;
 

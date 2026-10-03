@@ -85,6 +85,7 @@ class KaryawanServiceImpl implements KaryawanService
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->nip);
+        $user->must_change_password = true;
         $user->save();
         return $user->id;
     }
