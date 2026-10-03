@@ -24,7 +24,7 @@ use App\Services\Pendaftaran\PendaftaranService;
 use app\Services\Pendaftaran\RekamRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Mockery\Exception;
+use Exception;
 
 class DataRekamController extends Controller
 {

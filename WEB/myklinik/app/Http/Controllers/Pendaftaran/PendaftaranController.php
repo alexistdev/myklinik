@@ -68,32 +68,13 @@ class PendaftaranController extends Controller
         ));
     }
 
-    private function generateZero($totalData, $length, $lastId):string
-    {
-        $str = "0";
-        for ($i = 0; $i < (($totalData - 1) - $length); $i++) {
-            $str = $str . "0";
-        }
-        return $str . $lastId;
-    }
-
     public function generateCode()
     {
+        $next = ((int) (Pasien::withTrashed()->max('id') ?? 0)) + 1;
         do {
-            $totalData = 7;
-            $finalCode = "0000001";
-            $lastPasien = Pasien::orderBy('id', 'desc')->first();
-            if ($lastPasien != null) {
-                $lastId = ((int)$lastPasien->id) + 1;
-                $length = strlen($lastId);
-                if ($length > 0 && $length <= $totalData) {
-                    $finalCode = $this->generateZero($totalData,$length,$lastId);
-                } else if($length > $totalData){
-                    $finalCode = $this->generateZero($totalData+1,$length,$lastId);
-                }
-            }
-            $code = $this->prefix . $finalCode;
-        } while (Pasien::where('kode_pasien', $code)->exists());
+            $code = $this->prefix . str_pad((string) $next, 7, "0", STR_PAD_LEFT);
+            $next++;
+        } while (Pasien::withTrashed()->where('kode_pasien', $code)->exists());
         return json_encode($code);
     }
 

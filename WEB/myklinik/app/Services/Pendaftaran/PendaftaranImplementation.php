@@ -85,35 +85,14 @@ class PendaftaranImplementation implements PendaftaranService
 
     public function generateCode():string
     {
+        $prefix = "RKM-" . date("mY") . "-";
+        $next = ((int) (Rekam::withTrashed()->max('id') ?? 0)) + 1;
         do {
-            $totalData = 8;
-            $finalCode = "00000001";
-            $prefix = "RKM-" . date("mY") . "-";
-            $lastPasien = Rekam::orderBy('id', 'desc')->first();
-            if ($lastPasien != null) {
-                $lastId = ((int)$lastPasien->id) + 1;
-                $length = strlen($lastId);
-                if ($length > 0 && $length <= $totalData) {
-                    $finalCode = $this->generateZero($totalData,$length,$lastId);
-                } else if($length > $totalData){
-                    $finalCode = $this->generateZero($totalData+1,$length,$lastId);
-                }
-            }
-            $code = $prefix . $finalCode;
-        } while (Pasien::where('kode_pasien', $code)->exists());
+            $code = $prefix . str_pad((string) $next, 8, "0", STR_PAD_LEFT);
+            $next++;
+        } while (Rekam::withTrashed()->where('kode_rekam', $code)->exists());
         return $code;
     }
-
-    private function generateZero($totalData, $length, $lastId):string
-    {
-        $str = "0";
-        for ($i = 0; $i < (($totalData - 1) - $length); $i++) {
-            $str = $str . "0";
-        }
-        return $str . $lastId;
-    }
-
-
 
     public function getDataPasien(Request $request)
     {
@@ -134,7 +113,7 @@ class PendaftaranImplementation implements PendaftaranService
         $rekam = Rekam::findOrFail(base64_decode($request->rekam_id));
         $rekam->update([
             'status' => '2',
-            'diagnosa' => $request->diagnosa,
+            'diagnosis' => $request->diagnosa,
             'deskripsi_tindakan' => $request->deskripsi_tindakan,
         ]);
     }

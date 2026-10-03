@@ -47,7 +47,7 @@ class PasienRequest extends FormRequest
             $rules['dokter_id'] =  'required|max:255';
             return $rules;
         }
-        abort('4014', 'NOT FOUND');
+        abort(405, 'METHOD NOT ALLOWED');
 
     }
 
